@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import controllers.GameController;
 import tictactoe.Board;
 import tictactoe.Game;
 import tictactoe.GameCaretaker;
@@ -21,17 +22,9 @@ import java.awt.event.ActionEvent;
 
 public class GameWindow {
 
-	public JFrame frmTicTacToe;
-	private SaveHandler saveHandler;
-	private UndoHandler undoHandler;
-	private Game game;
-	private GameState gameState;
-	private GameMemento gameMemento;
-	private GameCaretaker gameCaretaker;
-	private ArrayList<Player> players;
-	private Board board;
-	private Board board1;
-	private Board board2;
+	private GameController gameController;
+	private JFrame frmTicTacToe;
+	BoardPanel boardContainer;
 	
 	int currentGameIterator = 0;
 	
@@ -39,42 +32,9 @@ public class GameWindow {
 	/**
 	 * Create the application.
 	 */
-	public GameWindow() {
-		runGame();
+	public GameWindow(GameController gameController) {
+		this.gameController = gameController;
 		initialize();
-	}
-
-	/**
-	 * Initialize all necessary Game items
-	 */
-	private void runGame() {
-//		game = new Game();
-//		Player player = new Player("test");
-//		Player player2 = new Player("test");
-//		players = new ArrayList<Player>();
-//		players.add(player);
-//		players.add(player2);
-//		
-//		board = new Board();
-//		board1 = new Board();
-//		board2 = new Board();
-//		
-//		gameState = new GameState(board, player);
-//		
-//		//gameMemento = new GameMemento(gameState, players);
-//		
-//		game.setGameState(gameState);
-//		game.setPlayers(players);
-//		gameCaretaker.addMemento(game.storeMemento());
-//		currentGameIterator++;
-//		
-//		game.setGameState(new GameState(board2, player2));
-//		gameCaretaker.addMemento(game.storeMemento());
-//		currentGameIterator++;
-		
-		
-		
-		
 	}
 
 	/**
@@ -87,20 +47,29 @@ public class GameWindow {
 		frmTicTacToe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmTicTacToe.getContentPane().setLayout(null);
 		
-		JPanel boardContainer = new JPanel();
+		boardContainer = new BoardPanel(3);
 		boardContainer.setBounds(10, 11, 300, 300);
+		boardContainer.setCallback((row,col) -> {
+				gameController.cellSelected(row,col);
+			});
 		frmTicTacToe.getContentPane().add(boardContainer);
+		
 		
 		JButton undoBtn = new JButton("Undo");
 		undoBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				undoHandler.undo();
+				gameController.undo();
 			}
 		});
 		undoBtn.setBounds(77, 322, 78, 23);
 		frmTicTacToe.getContentPane().add(undoBtn);
 		
 		JButton redoBtn = new JButton("Redo");
+		redoBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gameController.redo();
+			}
+		});
 		redoBtn.setBounds(165, 322, 78, 23);
 		frmTicTacToe.getContentPane().add(redoBtn);
 		
@@ -111,11 +80,17 @@ public class GameWindow {
 		JButton saveBtn = new JButton("Save");
 		saveBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				saveHandler.save();
+				//
 			}
 		});
 		saveBtn.setBounds(400, 322, 78, 23);
 		frmTicTacToe.getContentPane().add(saveBtn);
+
+		frmTicTacToe.setVisible(true);
+	}
+
+	public void setBoard(Board newBoard) {
+		boardContainer.setBoard(newBoard);
 	}
 	
 	

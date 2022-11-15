@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {	
-
+	
     private GameState gameState;
     private List<Player> players;
 
@@ -22,17 +22,17 @@ public class Game {
     }
 
 
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
+    public void setPlayers(List<Player> list) {
+        this.players = list;
     }
 
 
-    public GameMemento storeMemento() {  
+    public GameMemento createMemento() {  
         System.out.println("Originator: storeMemento " + gameState + ", " + players);
         return new GameMemento(gameState, players);
     }
 
-    public void restoreMemento(GameMemento m) {
+    public void restore(GameMemento m) {
         System.out.println("Originator: restoreMemento " + m.getGameState() + ", " + m.getPlayers());
         this.gameState = m.getGameState();
         this.players = m.getPlayers();
