@@ -1,30 +1,24 @@
 package ui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import controllers.GameController;
 import tictactoe.Board;
-import tictactoe.Game;
-import tictactoe.GameCaretaker;
-import tictactoe.GameMemento;
-import tictactoe.GameState;
-import tictactoe.Player;
 
-import java.awt.BorderLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
+import java.awt.Color;
+import javax.swing.JTextField;
 
 public class GameWindow {
 
 	private GameController gameController;
 	private JFrame frmTicTacToe;
 	BoardPanel boardContainer;
+	private SaveWindow saveWindow;
 	
 	int currentGameIterator = 0;
 	
@@ -44,7 +38,6 @@ public class GameWindow {
 		frmTicTacToe = new JFrame();
 		frmTicTacToe.setTitle("Tic Tac Toe");
 		frmTicTacToe.setBounds(100, 100, 500, 400);
-		frmTicTacToe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmTicTacToe.getContentPane().setLayout(null);
 		
 		boardContainer = new BoardPanel(3);
@@ -74,13 +67,20 @@ public class GameWindow {
 		frmTicTacToe.getContentPane().add(redoBtn);
 		
 		JButton loadBtn = new JButton("Load");
+		loadBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//gameController.load();
+			}
+		});
 		loadBtn.setBounds(312, 322, 78, 23);
 		frmTicTacToe.getContentPane().add(loadBtn);
 		
 		JButton saveBtn = new JButton("Save");
 		saveBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//
+				saveWindow = new SaveWindow(gameController);
+				
+				saveWindow.setVisible(true);
 			}
 		});
 		saveBtn.setBounds(400, 322, 78, 23);
@@ -92,6 +92,4 @@ public class GameWindow {
 	public void setBoard(Board newBoard) {
 		boardContainer.setBoard(newBoard);
 	}
-	
-	
 }

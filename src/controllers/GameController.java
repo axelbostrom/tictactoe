@@ -11,9 +11,11 @@ import tictactoe.Game;
 import tictactoe.GameState;
 import tictactoe.GameStateHistory;
 import tictactoe.Player;
+import tictactoe.SavedGames;
 import ui.GameWindow;
 import validators.MoveValidator;
 import validators.WinValidator;
+import tictactoe.GameSave;
 
 public class GameController {
 	private GameWindow view;
@@ -21,10 +23,13 @@ public class GameController {
 	private WinValidator winValidator;
 	private MoveValidator moveValidator;
 	private GameStateHistory gameStateHistory;
+	private SavedGames savedGames;
 	
 	public GameController() {
 		view = new GameWindow(this);
 		game = new Game();
+		savedGames = new SavedGames();
+		
 		game.setPlayers(List.of(new Player("Player 1", new CrossCell()), new Player("Player 2", new CircleCell())));
 		game.setGameState(new GameState(new Board(new Dimension(3, 3)), game.getPlayers().get(0)));
 		view.setBoard(game.getGameState().getCurrBoard());
@@ -56,5 +61,10 @@ public class GameController {
 		GameState nextGameState = gameStateHistory.getNextGameState();
 		game.setGameState(nextGameState);
 		view.setBoard(nextGameState.getCurrBoard());
+	}
+	
+	public void saveGame(String filename) {
+		savedGames.addSave(new GameSave(this, filename));
+		
 	}
  }
