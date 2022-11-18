@@ -1,11 +1,17 @@
 package tictactoe;
 
+import java.io.Serializable;
+
 import models.Cell;
 
-public class Player {
+public class Player implements Serializable {
     
-    String name;
-    Cell cell;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5226483868420288476L;
+	private String name;
+    private Cell cell;
 
     public Player(String name, Cell cell) {
         this.name = name;

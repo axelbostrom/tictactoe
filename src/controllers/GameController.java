@@ -11,24 +11,25 @@ import tictactoe.Game;
 import tictactoe.GameState;
 import tictactoe.GameStateHistory;
 import tictactoe.Player;
-import tictactoe.SavedGames;
 import ui.GameWindow;
 import validators.MoveValidator;
 import validators.WinValidator;
 import tictactoe.GameSave;
+import tictactoe.GameSaveHandler;
 
 public class GameController {
+	
 	private GameWindow view;
 	private Game game;
 	private WinValidator winValidator;
 	private MoveValidator moveValidator;
 	private GameStateHistory gameStateHistory;
-	private SavedGames savedGames;
+	private GameSaveHandler savedGames;
 	
 	public GameController() {
 		view = new GameWindow(this);
 		game = new Game();
-		savedGames = new SavedGames();
+		savedGames = new GameSaveHandler();
 		
 		game.setPlayers(List.of(new Player("Player 1", new CrossCell()), new Player("Player 2", new CircleCell())));
 		game.setGameState(new GameState(new Board(new Dimension(3, 3)), game.getPlayers().get(0)));
@@ -63,8 +64,21 @@ public class GameController {
 		view.setBoard(nextGameState.getCurrBoard());
 	}
 	
-	public void saveGame(String filename) {
-		savedGames.addSave(new GameSave(this, filename));
+	public void save(String filename) {
+		savedGames.addSave(new GameSave(game, gameStateHistory, filename));
+	}
+
+	public List<GameSave> getSaves() throws ClassNotFoundException {
+		return savedGames.getListOfSaves();
+	}
+
+	public void load(int index) throws ClassNotFoundException {
+		GameSave gameSave = savedGames.getGameSave(index);
 		
+		this.game = gameSave.getGame();
+		this.gameStateHistory = gameSave.getGameStateHistory();
+		
+		game.setGameState(gameSave.getGame().getGameState());
+		view.setBoard(game.getGameState().getCurrBoard());
 	}
  }

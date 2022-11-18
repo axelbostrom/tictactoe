@@ -1,9 +1,14 @@
 package tictactoe;
+import java.io.Serializable;
 import java.util.List;
 
-public class Game {	
+public class Game implements Serializable {	
 	
-    private GameState gameState;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -53498677702210278L;
+	private GameState gameState;
     private List<Player> players;
 
     public GameState getGameState() {

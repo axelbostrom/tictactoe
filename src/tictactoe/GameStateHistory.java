@@ -1,11 +1,18 @@
 package tictactoe;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameStateHistory {
-	List<GameState> gameStates;
-	int currentIndex;
+public class GameStateHistory implements Serializable {
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5235180427689906260L;
+	private List<GameState> gameStates;
+	private int currentIndex;
 	
 	public GameStateHistory(GameState initialGameState) {
 		gameStates = new ArrayList<>();

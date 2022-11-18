@@ -8,10 +8,6 @@ import tictactoe.Board;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JPanel;
-import javax.swing.JLayeredPane;
-import java.awt.Color;
-import javax.swing.JTextField;
 
 public class GameWindow {
 
@@ -19,9 +15,7 @@ public class GameWindow {
 	private JFrame frmTicTacToe;
 	BoardPanel boardContainer;
 	private SaveWindow saveWindow;
-	
-	int currentGameIterator = 0;
-	
+	private LoadWindow loadWindow;
 	
 	/**
 	 * Create the application.
@@ -69,7 +63,12 @@ public class GameWindow {
 		JButton loadBtn = new JButton("Load");
 		loadBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//gameController.load();
+;				try {
+					loadWindow = new LoadWindow(gameController);
+					loadWindow.setVisible(true);
+				} catch (ClassNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		loadBtn.setBounds(312, 322, 78, 23);
@@ -79,7 +78,6 @@ public class GameWindow {
 		saveBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				saveWindow = new SaveWindow(gameController);
-				
 				saveWindow.setVisible(true);
 			}
 		});

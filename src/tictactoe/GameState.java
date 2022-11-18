@@ -1,8 +1,14 @@
 package tictactoe;
 
-public class GameState {
+import java.io.Serializable;
 
-    Board currBoard;
+public class GameState implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1758190585875527115L;
+	Board currBoard;
     Player currPlayer;
     //Winvalidator
     

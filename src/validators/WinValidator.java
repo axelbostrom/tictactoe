@@ -1,12 +1,17 @@
 package validators;
 
+import java.io.Serializable;
 import java.util.function.Predicate;
 
 import models.Cell;
 import tictactoe.Board;
 
-public class WinValidator implements Predicate<Board>{
+public class WinValidator implements Predicate<Board>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -249275397516363198L;
 	int winningChainSize = 3;
 	
 	@Override
