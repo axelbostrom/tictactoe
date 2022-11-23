@@ -50,6 +50,6 @@ public class Board implements Serializable {
 	}
 
 	public boolean isEmpty(int row, int col) {
-		return cells[getIdx(row,col)].getClass().equals(EmptyCell.class);
+		return cells[getIdx(row,col)].isEmpty();
 	}
 }

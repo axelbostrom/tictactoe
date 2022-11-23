@@ -1,6 +1,7 @@
 package tictactoe;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class GameSave implements Serializable{
 	
@@ -8,24 +9,25 @@ public class GameSave implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -3122331854231061791L;
-	private Game game;
+	private List<Player> players;
 	private GameStateHistory gameStateHistory;
 	private String filename;
 
-	public GameSave(Game game, GameStateHistory gameStateHistory, String filename) {
-		this.setGame(game);
+	public GameSave(List<Player> players, GameStateHistory gameStateHistory, String filename) {
+		this.setPlayers(players);
 		this.setGameStateHistory(gameStateHistory);
 		this.setFilename(filename);
 		
 	}
 
-	public Game getGame() {
-		return game;
+	public List<Player> getPlayers() {
+		return players;
 	}
 
-	public void setGame(Game game) {
-		this.game = game;
+	public void setPlayers(List<Player> players) {
+		this.players = players;
 	}
+
 
 	public GameStateHistory getGameStateHistory() {
 		return gameStateHistory;

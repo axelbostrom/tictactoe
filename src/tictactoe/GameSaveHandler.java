@@ -25,7 +25,9 @@ public class GameSaveHandler implements Serializable {
 	}
 	
 	public void writeToFile(GameSave gs) {
+		new File(folder).mkdirs();
 		file = new File(folder + "\\" + gs.getFilename() + ".txt");
+		
 		try {
 			file.createNewFile();
 			FileOutputStream fs = new FileOutputStream(file);

@@ -2,6 +2,7 @@ package controllers;
 
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Observable;
 
 import models.CircleCell;
 import models.CrossCell;
@@ -10,7 +11,9 @@ import tictactoe.Board;
 import tictactoe.Game;
 import tictactoe.GameState;
 import tictactoe.GameStateHistory;
+import tictactoe.ObservableGame;
 import tictactoe.Player;
+import tictactoe.states.MoveState;
 import ui.GameWindow;
 import validators.MoveValidator;
 import validators.WinValidator;
@@ -32,40 +35,38 @@ public class GameController {
 		savedGames = new GameSaveHandler();
 		
 		game.setPlayers(List.of(new Player("Player 1", new CrossCell()), new Player("Player 2", new CircleCell())));
-		game.setGameState(new GameState(new Board(new Dimension(3, 3)), game.getPlayers().get(0)));
-		view.setBoard(game.getGameState().getCurrBoard());
-		gameStateHistory = new GameStateHistory(game.getGameState());
+		game.restore(new GameState(new Board(new Dimension(3, 3)), game.getPlayers().get(0), new MoveState()));
+		view.setBoard(game.getBoard());
+		gameStateHistory = new GameStateHistory(game.createMemento());
 		moveValidator = new MoveValidator();
 		winValidator = new WinValidator();
+		
+		game.addSubscriber(this::moveMade);
 	}
 	
 	public void cellSelected(int row, int col) {
-		
-		if (moveValidator.test(game.getGameState().getCurrBoard(), new Move(row, col))) {
-			Board newBoard = new Board(game.getGameState().getCurrBoard());
-			newBoard.setCell(row, col, game.getGameState().getCurrPlayer().getCell());
-			
-			Player nextPlayer = game.getPlayers().get((game.getPlayers().indexOf(game.getGameState().getCurrPlayer()) + 1) % game.getPlayers().size());
-			gameStateHistory.addGameState(new GameState(newBoard, nextPlayer));
-			game.setGameState(gameStateHistory.getCurrentGameState());
-			view.setBoard(newBoard);
-		}
+		game.makeMove(row, col);
+	}
+	
+	private void moveMade(Game game) {
+		gameStateHistory.addGameState(game.createMemento());
+		view.setBoard(game.getBoard());
 	}
 	
 	public void undo() {
 		GameState prevGameState = gameStateHistory.getPreviousGameState();
-		game.setGameState(prevGameState);
+		game.restore(prevGameState);
 		view.setBoard(prevGameState.getCurrBoard());
 	}
 	
 	public void redo() {
 		GameState nextGameState = gameStateHistory.getNextGameState();
-		game.setGameState(nextGameState);
+		game.restore(nextGameState);
 		view.setBoard(nextGameState.getCurrBoard());
 	}
 	
 	public void save(String filename) {
-		savedGames.addSave(new GameSave(game, gameStateHistory, filename));
+		savedGames.addSave(new GameSave(game.getPlayers(), gameStateHistory, filename));
 	}
 
 	public List<GameSave> getSaves() throws ClassNotFoundException {
@@ -75,10 +76,10 @@ public class GameController {
 	public void load(int index) throws ClassNotFoundException {
 		GameSave gameSave = savedGames.getGameSave(index);
 		
-		this.game = gameSave.getGame();
+		this.game.setPlayers(gameSave.getPlayers());;
 		this.gameStateHistory = gameSave.getGameStateHistory();
 		
-		game.setGameState(gameSave.getGame().getGameState());
-		view.setBoard(game.getGameState().getCurrBoard());
+		game.restore(gameStateHistory.getCurrentGameState());
+		view.setBoard(game.getBoard());
 	}
  }

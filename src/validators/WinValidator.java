@@ -25,12 +25,15 @@ public class WinValidator implements Predicate<Board>, Serializable {
 		boolean winningRow = false;
 		
 		for (int row = 0; row < rows && !winningRow; row++) {
+			if (board.isEmpty(row, 0)) {
+				continue;
+			}
 			Cell rowCellType = board.getCell(row, 0);
 			winningRow = true;
 			for (int col = 1; col < cols; col++) {
-				if (! board.getCell(row, col).getClass().equals(rowCellType.getClass()) ) {
+				if (!board.getCell(row, col).getClass().equals(rowCellType.getClass()) ) {
 					winningRow = false;
-					continue;
+					break;
 				}
 			}
 		}
@@ -43,6 +46,9 @@ public class WinValidator implements Predicate<Board>, Serializable {
 		boolean winningCol = false;
 		
 		for (int col = 0; col < cols && !winningCol; col++) {
+			if (board.isEmpty(0, col)) {
+				continue;
+			}
 			Cell colCellType = board.getCell(0, col);
 			winningCol = true;
 			for (int row = 1; row < rows; row++) {
@@ -65,7 +71,7 @@ public class WinValidator implements Predicate<Board>, Serializable {
 			currCellType = board.getCell(row, 0);
 			chainSize = 1;
 			for (int col = 1; (col < cols) && (row + col < rows) && (chainSize < winningChainSize); col++) {
-				if (board.getCell(row + col, col).getClass().equals(currCellType.getClass())) {
+				if (!board.isEmpty(row + col, col) && board.getCell(row + col, col).getClass().equals(currCellType.getClass())) {
 					chainSize++;
 				} else {
 					chainSize = 1;
@@ -73,8 +79,10 @@ public class WinValidator implements Predicate<Board>, Serializable {
 				}
 			}
 			
-			for (int col = 1; (col < cols) && (row - col > 0) && (chainSize < winningChainSize); col++) {
-				if (board.getCell(row - col, col).getClass().equals(currCellType.getClass())) {
+			currCellType = board.getCell(row, 0);
+			
+			for (int col = 1; (col < cols) && (row - col >= 0) && (chainSize < winningChainSize); col++) {
+				if (!board.isEmpty(row - col, col) && board.getCell(row - col, col).getClass().equals(currCellType.getClass())) {
 					chainSize++;
 				} else {
 					chainSize = 1;
