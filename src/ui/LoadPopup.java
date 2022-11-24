@@ -11,13 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controllers.GameController;
+import controllers.SaveController;
 import tictactoe.GameSave;
 
 import javax.swing.JList;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 
-public class LoadWindow extends JFrame {
+public class LoadPopup extends JFrame {
 
 	private JPanel contentPane;
 	private String[] fileNameList;
@@ -26,9 +27,9 @@ public class LoadWindow extends JFrame {
 	 * @throws ClassNotFoundException 
 	 */
 	
-	public LoadWindow(GameController gameController) throws ClassNotFoundException {
-		List<GameSave> gameSave = gameController.getSaves();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public LoadPopup(SaveController saveController) throws ClassNotFoundException {
+		List<GameSave> gameSave = saveController.getSaves();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -53,7 +54,7 @@ public class LoadWindow extends JFrame {
 		loadBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					gameController.load(loadList.getSelectedIndex());
+					saveController.load(loadList.getSelectedIndex());
 				} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
 				}

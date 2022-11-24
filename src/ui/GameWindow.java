@@ -13,15 +13,17 @@ public class GameWindow {
 
 	private GameController gameController;
 	private JFrame frmTicTacToe;
-	BoardPanel boardContainer;
-	private SaveWindow saveWindow;
-	private LoadWindow loadWindow;
+	private BoardPanel boardContainer;
+	private SavePanel savePanel;
+	private HistoryPanel historyPanel;
 	
 	/**
 	 * Create the application.
 	 */
-	public GameWindow(GameController gameController) {
+	public GameWindow(GameController gameController,SavePanel savePanel, HistoryPanel historyPanel) {
 		this.gameController = gameController;
+		this.savePanel = savePanel;
+		this.historyPanel = historyPanel;
 		initialize();
 	}
 
@@ -42,47 +44,10 @@ public class GameWindow {
 		frmTicTacToe.getContentPane().add(boardContainer);
 		
 		
-		JButton undoBtn = new JButton("Undo");
-		undoBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				gameController.undo();
-			}
-		});
-		undoBtn.setBounds(77, 322, 78, 23);
-		frmTicTacToe.getContentPane().add(undoBtn);
+		frmTicTacToe.getContentPane().add(historyPanel);
 		
-		JButton redoBtn = new JButton("Redo");
-		redoBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				gameController.redo();
-			}
-		});
-		redoBtn.setBounds(165, 322, 78, 23);
-		frmTicTacToe.getContentPane().add(redoBtn);
+		frmTicTacToe.getContentPane().add(savePanel);
 		
-		JButton loadBtn = new JButton("Load");
-		loadBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-;				try {
-					loadWindow = new LoadWindow(gameController);
-					loadWindow.setVisible(true);
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		loadBtn.setBounds(312, 322, 78, 23);
-		frmTicTacToe.getContentPane().add(loadBtn);
-		
-		JButton saveBtn = new JButton("Save");
-		saveBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				saveWindow = new SaveWindow(gameController);
-				saveWindow.setVisible(true);
-			}
-		});
-		saveBtn.setBounds(400, 322, 78, 23);
-		frmTicTacToe.getContentPane().add(saveBtn);
 
 		frmTicTacToe.setVisible(true);
 	}

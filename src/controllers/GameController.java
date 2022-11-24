@@ -15,35 +15,57 @@ import tictactoe.ObservableGame;
 import tictactoe.Player;
 import tictactoe.states.MoveState;
 import ui.GameWindow;
+import ui.HistoryPanel;
+import ui.SavePanel;
 import validators.MoveValidator;
 import validators.WinValidator;
 import tictactoe.GameSave;
-import tictactoe.GameSaveHandler;
+import tictactoe.GameSaveRepository;
 
 public class GameController {
 	
 	private GameWindow view;
 	private Game game;
-	private WinValidator winValidator;
-	private MoveValidator moveValidator;
 	private GameStateHistory gameStateHistory;
-	private GameSaveHandler savedGames;
+	private SaveController saveController;
+	private HistoryController historyController;
 	
 	public GameController() {
-		view = new GameWindow(this);
+		saveController = new SaveController(this);
+		
+		historyController = new HistoryController(this);
+		
+		SavePanel savePanel = new SavePanel(saveController);
+		HistoryPanel historyPanel = new HistoryPanel(historyController);
+		view = new GameWindow(this, savePanel, historyPanel);
 		game = new Game();
-		savedGames = new GameSaveHandler();
+		
+		saveController.setView(savePanel);
+		historyController.setView(historyPanel);
 		
 		game.setPlayers(List.of(new Player("Player 1", new CrossCell()), new Player("Player 2", new CircleCell())));
 		game.restore(new GameState(new Board(new Dimension(3, 3)), game.getPlayers().get(0), new MoveState()));
 		view.setBoard(game.getBoard());
 		gameStateHistory = new GameStateHistory(game.createMemento());
-		moveValidator = new MoveValidator();
-		winValidator = new WinValidator();
+		
+		historyController.setGame(game);
+		historyController.setGameStateHistory(gameStateHistory);
+
+		saveController.setGame(game);
+		saveController.setGameStateHistory(gameStateHistory);
+		saveController.setGameSaveRepository(new GameSaveRepository());
 		
 		game.addSubscriber(this::moveMade);
 	}
 	
+	public SaveController getSaveController() {
+		return saveController;
+	}
+
+	public void setSaveController(SaveController saveController) {
+		this.saveController = saveController;
+	}
+
 	public void cellSelected(int row, int col) {
 		game.makeMove(row, col);
 	}
@@ -53,33 +75,9 @@ public class GameController {
 		view.setBoard(game.getBoard());
 	}
 	
-	public void undo() {
-		GameState prevGameState = gameStateHistory.getPreviousGameState();
-		game.restore(prevGameState);
-		view.setBoard(prevGameState.getCurrBoard());
-	}
-	
-	public void redo() {
-		GameState nextGameState = gameStateHistory.getNextGameState();
-		game.restore(nextGameState);
-		view.setBoard(nextGameState.getCurrBoard());
-	}
-	
-	public void save(String filename) {
-		savedGames.addSave(new GameSave(game.getPlayers(), gameStateHistory, filename));
-	}
-
-	public List<GameSave> getSaves() throws ClassNotFoundException {
-		return savedGames.getListOfSaves();
-	}
-
-	public void load(int index) throws ClassNotFoundException {
-		GameSave gameSave = savedGames.getGameSave(index);
-		
-		this.game.setPlayers(gameSave.getPlayers());;
-		this.gameStateHistory = gameSave.getGameStateHistory();
-		
-		game.restore(gameStateHistory.getCurrentGameState());
+	public void boardUpdated() {
 		view.setBoard(game.getBoard());
 	}
+	
+	
  }

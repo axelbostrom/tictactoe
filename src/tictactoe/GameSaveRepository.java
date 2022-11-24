@@ -10,13 +10,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameSaveHandler implements Serializable {
+public class GameSaveRepository implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5880274844391104904L;
-	private List<GameSave> gameSave;
+	private List<GameSave> gameSaves;
 	private static String folder = "playerdata\\savedgames";
 	private File file;
 	
@@ -44,18 +44,18 @@ public class GameSaveHandler implements Serializable {
 
 	public GameSave getGameSave(int i) throws ClassNotFoundException {
 		loadFromFile();
-		return gameSave.get(i);
+		return gameSaves.get(i);
 	}
 	
 	public List<GameSave> getListOfSaves() throws ClassNotFoundException {
 		loadFromFile();
-		return gameSave;
+		return gameSaves;
 	}
 	
 	public void loadFromFile() throws ClassNotFoundException {
 		file = new File(folder);
 		File[] files = file.listFiles();
-		gameSave = new ArrayList<GameSave>();
+		gameSaves = new ArrayList<GameSave>();
 		
 		try {
 			FileInputStream fi;
@@ -64,7 +64,7 @@ public class GameSaveHandler implements Serializable {
 				fi = new FileInputStream(f);
 				in = new ObjectInputStream(fi);
 				
-				gameSave.add((GameSave) in.readObject());
+				gameSaves.add((GameSave) in.readObject());
 				
 				fi.close();
 				in.close();

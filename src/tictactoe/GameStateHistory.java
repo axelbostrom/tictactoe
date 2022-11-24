@@ -20,6 +20,11 @@ public class GameStateHistory implements Serializable {
 		addGameState(initialGameState);
 	}
 	
+	public void copy(GameStateHistory other) {
+		this.gameStates = other.gameStates;
+		this.currentIndex = other.currentIndex;
+	}
+	
 	public GameState getCurrentGameState() {
 		return gameStates.get(currentIndex);
 	}
