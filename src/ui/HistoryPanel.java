@@ -19,20 +19,24 @@ import models.EmptyCell;
 import tictactoe.Board;
 
 public class HistoryPanel extends JPanel {
-	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7766253202207226342L;
 	private HistoryController historyController;
-	
+
 	public HistoryPanel(HistoryController historyController) {
 		this.historyController = historyController;
 		initialize();
 	}
-	
-	private void initialize() {
-        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        //setSize(new Dimension(200,60));
-        setBounds(300, 300, 200, 60);
 
-        JButton undoBtn = new JButton("Undo");
+	private void initialize() {
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		// setSize(new Dimension(200,60));
+		setBounds(300, 300, 200, 60);
+
+		JButton undoBtn = new JButton("Undo");
 		undoBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				historyController.undo();
@@ -40,7 +44,7 @@ public class HistoryPanel extends JPanel {
 		});
 		undoBtn.setBounds(12, 22, 78, 23);
 		this.add(undoBtn);
-		
+
 		JButton redoBtn = new JButton("Redo");
 		redoBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -49,6 +53,6 @@ public class HistoryPanel extends JPanel {
 		});
 		redoBtn.setBounds(100, 22, 78, 23);
 		this.add(redoBtn);
-        
+
 	}
 }

@@ -1,21 +1,27 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tictactoe.Game;
 import tictactoe.GameState;
 import tictactoe.GameStateHistory;
+import tictactoe.Observable;
+import tictactoe.Observer;
 import ui.HistoryPanel;
 
-public class HistoryController {
+public class HistoryController implements Observable {
 
 	private HistoryPanel view;
 	private Game game;
 	private GameStateHistory gameStateHistory;
-	private GameController gameController; //dependency should be inverted
-	
-	public HistoryController(GameController parent) {
-		gameController = parent;
+	private GameState gameState;
+	private List<Observer> subscribers;
+
+	public HistoryController() {
+		subscribers = new ArrayList<Observer>();
 	}
-	
+
 	public HistoryPanel getView() {
 		return view;
 	}
@@ -41,14 +47,37 @@ public class HistoryController {
 	}
 
 	public void undo() {
-		GameState prevGameState = gameStateHistory.getPreviousGameState();
-		game.restore(prevGameState);
-		gameController.boardUpdated();
+		setGameState(gameStateHistory.getPreviousGameState());
 	}
-	
+
 	public void redo() {
-		GameState nextGameState = gameStateHistory.getNextGameState();
-		game.restore(nextGameState);
-		gameController.boardUpdated();
+		setGameState(gameStateHistory.getNextGameState());
+	}
+
+	public GameState getGameState() {
+		return gameState;
+	}
+
+	public void setGameState(GameState gameState) {
+		this.gameState = gameState;
+		notifySubscribers();
+	}
+
+	@Override
+	public void notifySubscribers() {
+		subscribers.forEach(observer -> observer.update(this));
+
+	}
+
+	@Override
+	public void addSubscriber(Observer observer) {
+		subscribers.add(observer);
+
+	}
+
+	@Override
+	public void removeSubscriber(Observer observer) {
+		subscribers.remove(observer);
+
 	}
 }

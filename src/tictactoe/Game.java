@@ -5,7 +5,7 @@ import java.util.List;
 
 import tictactoe.states.State;
 
-public class Game implements GameContext, ObservableGame {	
+public class Game implements GameContext, Observable, Serializable {	
 	
 	/**
 	 * 
@@ -15,7 +15,7 @@ public class Game implements GameContext, ObservableGame {
     private State state;
     private Board board;
     private Player player;
-    private transient List<GameObserver> subscribers;
+    private transient List<Observer> subscribers;
     
     public Game() {
     	subscribers = new ArrayList<>();
@@ -81,18 +81,19 @@ public class Game implements GameContext, ObservableGame {
 		state.makeMove(this, row, col);
 	}
 
-	private void notifySubscribers() {
-		subscribers.forEach(observer -> observer.accept(this));
+	@Override
+	public void notifySubscribers() {
+		subscribers.forEach(observer -> observer.update(this));
 	}
 
 	@Override
-	public void addSubscriber(GameObserver observer) {
+	public void addSubscriber(Observer observer) {
 		subscribers.add(observer);
 	}
 
 
 	@Override
-	public void removeSubscriber(GameObserver observer) {
+	public void removeSubscriber(Observer observer) {
 		subscribers.remove(observer);
 	}
 	

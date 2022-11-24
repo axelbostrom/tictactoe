@@ -1,32 +1,44 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import tictactoe.Game;
 import tictactoe.GameSave;
 import tictactoe.GameSaveRepository;
+import tictactoe.GameState;
 import tictactoe.GameStateHistory;
-import ui.GameWindow;
+import tictactoe.Observable;
+import tictactoe.Observer;
 import ui.SavePanel;
 
-public class SaveController {
+public class SaveController implements Observable {
 
 	private SavePanel view;
 	private GameSaveRepository gameSaveRepository;
+	private GameState gameState;
 	private Game game;
 	private GameStateHistory gameStateHistory;
-	private GameController gameController; //dependency should be inverted
-	
-	public SaveController(GameController parent) {
-		gameController = parent;
+	private List<Observer> subscribers;
+
+	public SaveController() {
+		subscribers = new ArrayList<Observer>();
 	}
-	
+
 	public SavePanel getView() {
 		return view;
 	}
 
 	public void setView(SavePanel view) {
 		this.view = view;
+	}
+
+	public GameState getGameState() {
+		return gameState;
+	}
+
+	public void setGame(GameState gameState) {
+		this.gameState = gameState;
 	}
 
 	public Game getGame() {
@@ -63,11 +75,27 @@ public class SaveController {
 
 	public void load(int index) throws ClassNotFoundException {
 		GameSave gameSave = gameSaveRepository.getGameSave(index);
-		
-		this.game.setPlayers(gameSave.getPlayers());;
+
+		this.game.setPlayers(gameSave.getPlayers());
 		this.gameStateHistory.copy(gameSave.getGameStateHistory());
-		
-		game.restore(gameStateHistory.getCurrentGameState());
-		gameController.boardUpdated();
+		this.gameState = gameStateHistory.getCurrentGameState();
+
+		notifySubscribers();
+	}
+
+	@Override
+	public void notifySubscribers() {
+		subscribers.forEach(observer -> observer.update(this));
+	}
+
+	@Override
+	public void addSubscriber(Observer observer) {
+		subscribers.add(observer);
+
+	}
+
+	@Override
+	public void removeSubscriber(Observer observer) {
+		subscribers.remove(observer);
 	}
 }
