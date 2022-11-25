@@ -12,8 +12,13 @@ import controllers.SaveController;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
 public class SavePopup extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5240091793669437775L;
 	private JPanel contentPane;
 	private String saveFileName;
 	private JTextField textField;
@@ -30,14 +35,14 @@ public class SavePopup extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		
+
 		JLabel lblNewLabel = new JLabel("Savefile name:");
 		contentPane.add(lblNewLabel);
-		
+
 		textField = new JTextField();
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		JButton saveBtn = new JButton("Save");
 		contentPane.add(saveBtn);
 		saveBtn.addActionListener(new ActionListener() {

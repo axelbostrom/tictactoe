@@ -12,11 +12,11 @@ public class MoveState implements State {
 	 * 
 	 */
 	private static final long serialVersionUID = -8357350819011989051L;
-	
+
 	private TieValidator tieValidator;
 	private WinValidator winValidator;
 	private MoveValidator moveValidator;
-	
+
 	public MoveState() {
 		this.tieValidator = new TieValidator();
 		this.winValidator = new WinValidator();
@@ -30,7 +30,7 @@ public class MoveState implements State {
 			newBoard.setCell(row, col, context.getCurrentPlayer().getCell());
 
 			context.setBoard(newBoard);
-			
+
 			if (winValidator.test(newBoard)) {
 				handleWin(context);
 			} else {
@@ -43,14 +43,13 @@ public class MoveState implements State {
 			}
 		}
 	}
-	
+
 	private void handleWin(GameContext context) {
 		context.setState(new WinState());
 	}
-	
+
 	private void handleTie(GameContext context) {
 		context.setState(new TieState());
 	}
-	
 
 }

@@ -3,8 +3,8 @@ package tictactoe;
 import java.io.Serializable;
 import java.util.List;
 
-public class GameSave implements Serializable{
-	
+public class GameSave implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -17,7 +17,7 @@ public class GameSave implements Serializable{
 		this.setPlayers(players);
 		this.setGameStateHistory(gameStateHistory);
 		this.setFilename(filename);
-		
+
 	}
 
 	public List<Player> getPlayers() {
@@ -27,7 +27,6 @@ public class GameSave implements Serializable{
 	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
-
 
 	public GameStateHistory getGameStateHistory() {
 		return gameStateHistory;

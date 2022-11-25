@@ -80,12 +80,11 @@ public class SaveController implements Observable {
 		this.gameStateHistory.copy(gameSave.getGameStateHistory());
 		this.gameState = gameStateHistory.getCurrentGameState();
 
-		notifySubscribers();
+		notifySubscribers("load");
 	}
 
-	@Override
-	public void notifySubscribers() {
-		subscribers.forEach(observer -> observer.update(this));
+	public void notifySubscribers(String string) {
+		subscribers.forEach(observer -> observer.update(string, this));
 	}
 
 	@Override
@@ -98,4 +97,5 @@ public class SaveController implements Observable {
 	public void removeSubscriber(Observer observer) {
 		subscribers.remove(observer);
 	}
+
 }

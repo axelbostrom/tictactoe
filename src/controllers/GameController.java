@@ -32,22 +32,11 @@ public class GameController {
 		SavePanel savePanel = new SavePanel(saveController);
 		HistoryPanel historyPanel = new HistoryPanel(historyController);
 		view = new GameWindow(savePanel, historyPanel);
-		game = new Game();
 
 		saveController.setView(savePanel);
 		historyController.setView(historyPanel);
 
-		game.setPlayers(List.of(new Player("Player 1", new CrossCell()), new Player("Player 2", new CircleCell())));
-		game.restore(new GameState(new Board(new Dimension(3, 3)), game.getPlayers().get(0), new MoveState()));
-		view.setBoard(game.getBoard());
-		gameStateHistory = new GameStateHistory(game.createMemento());
-
-		historyController.setGame(game);
-		historyController.setGameStateHistory(gameStateHistory);
-
-		saveController.setGame(game);
-		saveController.setGameStateHistory(gameStateHistory);
-		saveController.setGameSaveRepository(new GameSaveRepository());
+		initializeNewGame();
 
 		historyController.addSubscriber(this::updateBoard);
 		game.addSubscriber(this::moveMade);
@@ -63,24 +52,48 @@ public class GameController {
 		this.saveController = saveController;
 	}
 
-	public void cellSelected(Object o) {
+	public void cellSelected(String string, Object o) {
 		game.makeMove(view.getRow(), view.getCol());
 	}
 
-	private void moveMade(Object o) {
+	private void moveMade(String string, Object o) {
 		gameStateHistory.addGameState(game.createMemento());
-		view.setBoard(game.getBoard());
+		view.setBoard(game.getBoard(), game.getCurrentPlayer().getName());
 	}
 
-	public void updateBoard(Object o) {
-		game.restore(historyController.getGameState());
-		view.setBoard(game.getBoard());
-	}
-
-	private void loadOldGame(Object o) {
+	private void loadOldGame(String string, Object o) {
 		game.restore(saveController.getGameState());
 		game.setPlayers(saveController.getGame().getPlayers());
-		view.setBoard(game.getBoard());
+		view.setBoard(game.getBoard(), game.getCurrentPlayer().getName());
+	}
+
+	private void updateBoard(String string, Object object) {
+		if (string == "redo" || string == "undo") {
+			game.restore(historyController.getGameState());
+			view.setBoard(game.getBoard(), game.getCurrentPlayer().getName());
+		} else if (string == "newGame") {
+			initializeNewGame();
+		}
+	}
+
+	private void initializeNewGame() {
+		game = new Game();
+
+		game.setPlayers(
+				List.of(new Player("Cross player", new CrossCell()), new Player("Circle player", new CircleCell())));
+		game.restore(new GameState(new Board(new Dimension(3, 3)), game.getPlayers().get(0), new MoveState()));
+
+		gameStateHistory = new GameStateHistory(game.createMemento());
+
+		view.setBoard(game.getBoard(), game.getCurrentPlayer().getName());
+
+		historyController.setGame(game);
+		historyController.setGameStateHistory(gameStateHistory);
+
+		saveController.setGame(game);
+		saveController.setGameStateHistory(gameStateHistory);
+		saveController.setGameSaveRepository(new GameSaveRepository());
+
 	}
 
 }

@@ -18,25 +18,25 @@ import models.EmptyCell;
 import tictactoe.Board;
 
 public class SavePanel extends JPanel {
-	
+
 	private LoadPopup loadWindow;
 	private SavePopup saveWindow;
 	private SaveController saveController;
-	
+
 	public SavePanel(SaveController saveController) {
 		this.saveController = saveController;
 		initialize();
 	}
-	
-	private void initialize() {
-        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        setSize(new Dimension(200,60));
-        setBounds(100, 300, 200, 60);
 
-        JButton loadBtn = new JButton("Load");
+	private void initialize() {
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		setSize(new Dimension(200, 60));
+		setBounds(100, 300, 200, 60);
+
+		JButton loadBtn = new JButton("Load");
 		loadBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-;				try {
+				try {
 					loadWindow = new LoadPopup(saveController);
 					loadWindow.setVisible(true);
 				} catch (ClassNotFoundException e1) {
@@ -46,7 +46,7 @@ public class SavePanel extends JPanel {
 		});
 		loadBtn.setBounds(12, 22, 78, 23);
 		this.add(loadBtn);
-		
+
 		JButton saveBtn = new JButton("Save");
 		saveBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -56,6 +56,6 @@ public class SavePanel extends JPanel {
 		});
 		saveBtn.setBounds(100, 22, 78, 23);
 		this.add(saveBtn);
-        
+
 	}
 }

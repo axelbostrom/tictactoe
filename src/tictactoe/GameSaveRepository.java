@@ -19,22 +19,22 @@ public class GameSaveRepository implements Serializable {
 	private List<GameSave> gameSaves;
 	private static String folder = "playerdata\\savedgames";
 	private File file;
-	
+
 	public void addSave(GameSave g) {
 		writeToFile(g);
 	}
-	
+
 	public void writeToFile(GameSave gs) {
 		new File(folder).mkdirs();
 		file = new File(folder + "\\" + gs.getFilename() + ".txt");
-		
+
 		try {
 			file.createNewFile();
 			FileOutputStream fs = new FileOutputStream(file);
 			ObjectOutputStream out = new ObjectOutputStream(fs);
-			
+
 			out.writeObject(gs);
-			
+
 			fs.close();
 			out.close();
 		} catch (IOException e) {
@@ -46,26 +46,26 @@ public class GameSaveRepository implements Serializable {
 		loadFromFile();
 		return gameSaves.get(i);
 	}
-	
+
 	public List<GameSave> getListOfSaves() throws ClassNotFoundException {
 		loadFromFile();
 		return gameSaves;
 	}
-	
+
 	public void loadFromFile() throws ClassNotFoundException {
 		file = new File(folder);
 		File[] files = file.listFiles();
 		gameSaves = new ArrayList<GameSave>();
-		
+
 		try {
 			FileInputStream fi;
 			ObjectInputStream in;
-			for (File f: files) {
+			for (File f : files) {
 				fi = new FileInputStream(f);
 				in = new ObjectInputStream(fi);
-				
+
 				gameSaves.add((GameSave) in.readObject());
-				
+
 				fi.close();
 				in.close();
 			}

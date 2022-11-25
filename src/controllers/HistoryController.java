@@ -48,10 +48,12 @@ public class HistoryController implements Observable {
 
 	public void undo() {
 		setGameState(gameStateHistory.getPreviousGameState());
+		notifySubscribers("undo");
 	}
 
 	public void redo() {
 		setGameState(gameStateHistory.getNextGameState());
+		notifySubscribers("redo");
 	}
 
 	public GameState getGameState() {
@@ -60,13 +62,6 @@ public class HistoryController implements Observable {
 
 	public void setGameState(GameState gameState) {
 		this.gameState = gameState;
-		notifySubscribers();
-	}
-
-	@Override
-	public void notifySubscribers() {
-		subscribers.forEach(observer -> observer.update(this));
-
 	}
 
 	@Override
@@ -78,6 +73,15 @@ public class HistoryController implements Observable {
 	@Override
 	public void removeSubscriber(Observer observer) {
 		subscribers.remove(observer);
+
+	}
+
+	public void newGame() {
+		notifySubscribers("newGame");
+	}
+
+	private void notifySubscribers(String string) {
+		subscribers.forEach(observer -> observer.update(string, this));
 
 	}
 }

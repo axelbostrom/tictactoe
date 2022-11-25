@@ -23,7 +23,7 @@ public class Board implements Serializable {
 		}
 
 		this.size = new Dimension(size);
-		cells = new Cell[size.height*size.width];
+		cells = new Cell[size.height * size.width];
 		Arrays.fill(cells, new EmptyCell());
 	}
 
@@ -38,11 +38,11 @@ public class Board implements Serializable {
 	}
 
 	public void setCell(int row, int col, Cell cell) {
-		cells[getIdx(row,col)] = cell;
+		cells[getIdx(row, col)] = cell;
 	}
 
 	public Cell getCell(int row, int col) {
-		return cells[getIdx(row,col)];
+		return cells[getIdx(row, col)];
 	}
 
 	public Dimension getSize() {
@@ -50,6 +50,6 @@ public class Board implements Serializable {
 	}
 
 	public boolean isEmpty(int row, int col) {
-		return cells[getIdx(row,col)].isEmpty();
+		return cells[getIdx(row, col)].isEmpty();
 	}
 }

@@ -7,8 +7,7 @@ import java.util.function.Predicate;
 import models.Move;
 import tictactoe.Board;
 
-public class MoveValidator implements BiPredicate<Board,Move>, Serializable{
-
+public class MoveValidator implements BiPredicate<Board, Move>, Serializable {
 
 	/**
 	 * 

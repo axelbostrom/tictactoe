@@ -19,11 +19,13 @@ public class LoadPopup extends JFrame {
 
 	private JPanel contentPane;
 	private String[] fileNameList;
+
 	/**
 	 * Create the frame.
-	 * @throws ClassNotFoundException 
+	 * 
+	 * @throws ClassNotFoundException
 	 */
-	
+
 	public LoadPopup(SaveController saveController) throws ClassNotFoundException {
 		List<GameSave> gameSave = saveController.getSaves();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -37,21 +39,22 @@ public class LoadPopup extends JFrame {
 		for (int i = 0; i < gameSave.size(); i++) {
 			fileNameList[i] = gameSave.get(i).getFilename();
 		}
-		
+
 		JList<String> loadList = new JList<String>(fileNameList);
 		loadList.setBounds(10, 29, 418, 190);
 		contentPane.add(loadList);
-		
+
 		JTextPane infoText = new JTextPane();
 		infoText.setText("Select a save to load:");
 		infoText.setBounds(10, 11, 120, 20);
 		contentPane.add(infoText);
-		
+
 		JButton loadBtn = new JButton("Load");
 		loadBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					saveController.load(loadList.getSelectedIndex());
+					if (loadList.getSelectedIndex() > 0)
+						saveController.load(loadList.getSelectedIndex());
 				} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
 				}
@@ -61,5 +64,5 @@ public class LoadPopup extends JFrame {
 		loadBtn.setBounds(176, 231, 89, 23);
 		contentPane.add(loadBtn);
 	}
-	
+
 }

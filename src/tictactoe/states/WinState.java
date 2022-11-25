@@ -17,7 +17,7 @@ public class WinState implements State {
 
 	@Override
 	public void makeMove(GameContext context, int row, int col) {
-		
+
 	}
 
 }

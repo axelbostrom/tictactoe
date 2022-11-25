@@ -6,21 +6,23 @@ import controllers.GameController;
 import tictactoe.Board;
 import tictactoe.Observable;
 import tictactoe.Observer;
+import tictactoe.Player;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 
 public class GameWindow implements Observable {
 
-	private GameController gameController;
 	private JFrame frmTicTacToe;
 	private BoardPanel boardContainer;
 	private SavePanel savePanel;
 	private HistoryPanel historyPanel;
 	private List<Observer> subscribers;
+	private InfoPanel infoPanel;
 	private int row;
 	private int col;
 
@@ -38,6 +40,7 @@ public class GameWindow implements Observable {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		infoPanel = new InfoPanel();
 		frmTicTacToe = new JFrame();
 		frmTicTacToe.setTitle("Tic Tac Toe");
 		frmTicTacToe.setBounds(100, 100, 500, 400);
@@ -48,8 +51,11 @@ public class GameWindow implements Observable {
 		boardContainer.setCallback((row, col) -> {
 			this.row = row;
 			this.col = col;
-			notifySubscribers();
+			notifySubscribers("move");
 		});
+
+		frmTicTacToe.getContentPane().add(infoPanel);
+
 		frmTicTacToe.getContentPane().add(boardContainer);
 
 		frmTicTacToe.getContentPane().add(historyPanel);
@@ -59,33 +65,30 @@ public class GameWindow implements Observable {
 		frmTicTacToe.setVisible(true);
 	}
 
-	public void setBoard(Board newBoard) {
+	public void setBoard(Board newBoard, String playerName) {
 		boardContainer.setBoard(newBoard);
+		infoPanel.setPlayerName(playerName);
 	}
-	
+
 	public int getRow() {
 		return row;
 	}
-	
+
 	public int getCol() {
 		return col;
 	}
 
-	@Override
-	public void notifySubscribers() {
-		subscribers.forEach(observer -> observer.update(this));
-		
+	public void notifySubscribers(String string) {
+		subscribers.forEach(observer -> observer.update(string, this));
 	}
 
 	@Override
 	public void addSubscriber(Observer observer) {
 		subscribers.add(observer);
-		
 	}
 
 	@Override
 	public void removeSubscriber(Observer observer) {
 		subscribers.remove(observer);
-		
 	}
 }
