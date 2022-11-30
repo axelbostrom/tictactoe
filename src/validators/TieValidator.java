@@ -2,11 +2,10 @@ package validators;
 
 import java.awt.Dimension;
 import java.io.Serializable;
-import java.util.function.Predicate;
 
 import models.Board;
 
-public class TieValidator implements Predicate<Board>, Serializable {
+public class TieValidator implements Serializable, ITieValidator {
 
 	/**
 	 * 

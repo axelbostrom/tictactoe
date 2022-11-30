@@ -90,7 +90,7 @@ public class SaveController implements ISaveController {
 		
 
 		this.game.setPlayers(gameSave.getPlayers());
-		this.gameStateHistory.load(gameSave.getGameStateHistory());
+		this.gameStateHistory.loadOtherHistory(gameSave.getGameStateHistory());
 		this.gameState = gameStateHistory.getCurrentGameState();
 
 		game.restore(getGameState());

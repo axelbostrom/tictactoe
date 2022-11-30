@@ -11,6 +11,7 @@ import models.CircleCell;
 import models.CrossCell;
 import models.Player;
 import observer.Observer;
+import tictactoe.IAbstractGameInitFactory;
 import tictactoe.RestorableObservableGameContext;
 import tictactoe.states.MoveState;
 import ui.HistoryPanel;
@@ -22,6 +23,7 @@ public class HistoryController implements IHistoryController {
 	private GameStateHistory gameStateHistory;
 	private GameState gameState;
 	private List<Observer> subscribers;
+	private IAbstractGameInitFactory gameInitFactory;
 
 	public HistoryController() {
 		subscribers = new ArrayList<Observer>();
@@ -104,11 +106,21 @@ public class HistoryController implements IHistoryController {
 	}
 	
 	private void initializeNewGame() {
-		game.setPlayers(
-				List.of(new Player("Cross player", new CrossCell()), new Player("Circle player", new CircleCell())));
-		game.restore(new GameState(new Board(new Dimension(3, 3)), game.getPlayers().get(0), new MoveState()));
+		game.setPlayers(gameInitFactory.createPlayers());
+		GameState startGameState = new GameState(gameInitFactory.createBoard(), game.getPlayers().get(0), gameInitFactory.createStartingState());
+		game.restore(startGameState);
 
 		gameStateHistory.clear();
 		gameStateHistory.addGameState(game.createMemento());
 	}
+
+	public IAbstractGameInitFactory getGameInitFactory() {
+		return gameInitFactory;
+	}
+
+	public void setGameInitFactory(IAbstractGameInitFactory gameInitFactory) {
+		this.gameInitFactory = gameInitFactory;
+	}
+	
+	
 }

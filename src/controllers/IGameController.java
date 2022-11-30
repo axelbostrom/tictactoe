@@ -15,7 +15,7 @@ public interface IGameController {
 
 	RestorableObservableGameContext getGame();
 
-	void setGame(Game game);
+	void setGame(RestorableObservableGameContext game);
 
 	GameStateHistory getGameStateHistory();
 
@@ -23,14 +23,18 @@ public interface IGameController {
 
 	ISaveController getSaveController();
 
-	void setSaveController(SaveController saveController);
+	void setSaveController(ISaveController saveController);
 
 	IHistoryController getHistoryController();
 
-	void setHistoryController(HistoryController historyController);
+	void setHistoryController(IHistoryController historyController);
 
 	IBoardController getBoardController();
 
 	void setBoardController(IBoardController boardController);
+	
+	IStateMapper getStateMapper();
+
+	void setStateMapper(IStateMapper stateMapper);
 
 }

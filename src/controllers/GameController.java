@@ -3,20 +3,17 @@ package controllers;
 import memento.GameStateHistory;
 import tictactoe.Game;
 import tictactoe.RestorableObservableGameContext;
-import tictactoe.states.MoveState;
-import tictactoe.states.TieState;
-import tictactoe.states.WinState;
 import ui.GameWindow;
-import ui.GameWindowState;
 
 public class GameController implements IGameController {
 
 	private GameWindow view;
-	private Game game;
+	private RestorableObservableGameContext game;
 	private GameStateHistory gameStateHistory;
 	private ISaveController saveController;
-	private HistoryController historyController;
+	private IHistoryController historyController;
 	private IBoardController boardController;
+	private IStateMapper stateMapper;
 
 	public GameController() {
 	}
@@ -32,13 +29,7 @@ public class GameController implements IGameController {
 	}
 	
 	private void updateUiState() {
-		if (game.getState().getClass().equals(MoveState.class)) {
-			view.setState(GameWindowState.MOVE);
-		} else if (game.getState().getClass().equals(TieState.class)) {
-			view.setState(GameWindowState.TIE);
-		} else if (game.getState().getClass().equals(WinState.class)) {
-			view.setState(GameWindowState.WIN);
-		}
+		view.setState(stateMapper.map(game.getState()));
 	}
 	private void updateUI() {
 		boardController.updateBoard();
@@ -62,7 +53,7 @@ public class GameController implements IGameController {
 	}
 
 	@Override
-	public void setGame(Game game) {
+	public void setGame(RestorableObservableGameContext game) {
 		this.game = game;
 		game.addSubscriber(this::moveMade);
 	}
@@ -83,7 +74,7 @@ public class GameController implements IGameController {
 	}
 
 	@Override
-	public void setSaveController(SaveController saveController) {
+	public void setSaveController(ISaveController saveController) {
 		this.saveController = saveController;
 		saveController.addSubscriber(this::updateUI);
 	}
@@ -94,7 +85,7 @@ public class GameController implements IGameController {
 	}
 
 	@Override
-	public void setHistoryController(HistoryController historyController) {
+	public void setHistoryController(IHistoryController historyController) {
 		this.historyController = historyController;
 		historyController.addSubscriber(this::updateUI);
 	}
@@ -110,6 +101,12 @@ public class GameController implements IGameController {
 		historyController.addSubscriber(this::updateUI);
 	}
 
-	
+	public IStateMapper getStateMapper() {
+		return stateMapper;
+	}
+
+	public void setStateMapper(IStateMapper stateMapper) {
+		this.stateMapper = stateMapper;
+	}
 	
 }

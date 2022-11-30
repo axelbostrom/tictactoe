@@ -57,6 +57,7 @@ public class GameSaveRepository implements Serializable, IGameSaveRepository {
 
 	private void loadFromFile() throws ClassNotFoundException {
 		file = new File(folder);
+		file.mkdirs();
 		File[] files = file.listFiles();
 		gameSaves = new ArrayList<GameSave>();
 

@@ -1,12 +1,11 @@
 package validators;
 
 import java.io.Serializable;
-import java.util.function.Predicate;
 
 import models.Board;
 import models.Cell;
 
-public class WinValidator implements Predicate<Board>, Serializable {
+public class WinValidator implements Serializable, IWinValidator {
 
 	/**
 	 * 

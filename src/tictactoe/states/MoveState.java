@@ -3,6 +3,9 @@ package tictactoe.states;
 import models.Board;
 import models.Move;
 import tictactoe.GameContext;
+import validators.IMoveValidator;
+import validators.ITieValidator;
+import validators.IWinValidator;
 import validators.MoveValidator;
 import validators.TieValidator;
 import validators.WinValidator;
@@ -13,15 +16,18 @@ public class MoveState implements State {
 	 */
 	private static final long serialVersionUID = -8357350819011989051L;
 
-	private TieValidator tieValidator;
-	private WinValidator winValidator;
-	private MoveValidator moveValidator;
+	private ITieValidator tieValidator;
+	private IWinValidator winValidator;
+	private IMoveValidator moveValidator;
 
-	public MoveState() {
-		this.tieValidator = new TieValidator();
-		this.winValidator = new WinValidator();
-		this.moveValidator = new MoveValidator();
+	public MoveState(ITieValidator tieValidator, IWinValidator winValidator, IMoveValidator moveValidator) {
+		super();
+		this.tieValidator = tieValidator;
+		this.winValidator = winValidator;
+		this.moveValidator = moveValidator;
 	}
+
+
 
 	@Override
 	public void makeMove(GameContext context, int row, int col) {
@@ -38,7 +44,7 @@ public class MoveState implements State {
 					handleTie(context);
 				} else {
 					context.setCurrentPlayer(context.getNextPlayer());
-					context.setState(new MoveState());
+					context.setState(new MoveState(tieValidator, winValidator, moveValidator));
 				}
 			}
 		}

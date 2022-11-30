@@ -1,12 +1,11 @@
 package validators;
 
 import java.io.Serializable;
-import java.util.function.BiPredicate;
 
 import models.Board;
 import models.Move;
 
-public class MoveValidator implements BiPredicate<Board, Move>, Serializable {
+public class MoveValidator implements Serializable, IMoveValidator {
 
 	/**
 	 * 

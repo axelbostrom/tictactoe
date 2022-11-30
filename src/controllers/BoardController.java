@@ -7,7 +7,7 @@ import ui.BoardPanel;
 public class BoardController implements IBoardController {
 	
 	private BoardPanel view;
-	private Game game;
+	private RestorableObservableGameContext game;
 	
 	public BoardController() {
 	}
@@ -38,7 +38,7 @@ public class BoardController implements IBoardController {
 	}
 
 	@Override
-	public void setGame(Game game) {
+	public void setGame(RestorableObservableGameContext game) {
 		this.game = game;
 	}
 }

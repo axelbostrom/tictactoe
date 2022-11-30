@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -43,7 +44,7 @@ public class LoadPopup extends JFrame {
 		loadList.setBounds(10, 29, 418, 190);
 		contentPane.add(loadList);
 
-		JTextPane infoText = new JTextPane();
+		JLabel infoText = new JLabel();
 		infoText.setText("Select a save to load:");
 		infoText.setBounds(10, 11, 120, 20);
 		contentPane.add(infoText);

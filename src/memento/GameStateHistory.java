@@ -22,7 +22,7 @@ public class GameStateHistory implements Serializable {
 		addGameState(initialGameState);
 	}
 
-	public void load(GameStateHistory other) {
+	public void loadOtherHistory(GameStateHistory other) {
 		this.gameStates = other.gameStates;
 		this.currentIndex = other.currentIndex;
 	}

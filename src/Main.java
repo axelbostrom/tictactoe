@@ -5,14 +5,25 @@ import controllers.GameController;
 import controllers.HistoryController;
 import controllers.IBoardController;
 import controllers.IGameController;
+import controllers.IHistoryController;
+import controllers.ISaveController;
 import controllers.SaveController;
+import controllers.StateMapper;
 import memento.GameStateHistory;
 import saving.GameSaveRepository;
+import tictactoe.DefaultGameInitFactory;
 import tictactoe.Game;
+import tictactoe.IAbstractGameInitFactory;
 import ui.BoardPanel;
 import ui.GameWindow;
 import ui.HistoryPanel;
 import ui.SavePanel;
+import validators.IMoveValidator;
+import validators.ITieValidator;
+import validators.IWinValidator;
+import validators.MoveValidator;
+import validators.TieValidator;
+import validators.WinValidator;
 
 public class Main {
 
@@ -22,8 +33,13 @@ public class Main {
 		Game game = new Game();
 		GameStateHistory gameStateHistory = new GameStateHistory();
 		
-		SaveController saveController = new SaveController();
-		HistoryController historyController = new HistoryController();
+		IWinValidator winValidator = new WinValidator();
+		ITieValidator tieValidator = new TieValidator();
+		IMoveValidator moveValidator = new MoveValidator();
+		IAbstractGameInitFactory gameInitFactory = new DefaultGameInitFactory(3, winValidator, tieValidator, moveValidator);
+		
+		ISaveController saveController = new SaveController();
+		IHistoryController historyController = new HistoryController();
 		IBoardController boardController = new BoardController();
 
 		SavePanel savePanel = new SavePanel(saveController);
@@ -40,6 +56,7 @@ public class Main {
 		historyController.setGame(game);
 		historyController.setGameStateHistory(gameStateHistory);
 		historyController.setView(historyPanel);
+		historyController.setGameInitFactory(gameInitFactory);
 
 		saveController.setGame(game);
 		saveController.setGameStateHistory(gameStateHistory);
@@ -55,6 +72,7 @@ public class Main {
 		gameController.setSaveController(saveController);
 		gameController.setBoardController(boardController);
 		gameController.setView(mainWindow);
+		gameController.setStateMapper(new StateMapper());
 		
 		gameController.play();
 		

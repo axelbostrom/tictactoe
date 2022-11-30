@@ -16,6 +16,6 @@ public interface IBoardController {
 
 	RestorableObservableGameContext getGame();
 
-	void setGame(Game game);
+	void setGame(RestorableObservableGameContext game);
 
 }
