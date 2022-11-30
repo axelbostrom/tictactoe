@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import memento.GameState;
-import memento.GameStateHistory;
+import memento.GameHistory;
 import observer.Observer;
 import tictactoe.IAbstractGameInitFactory;
 import tictactoe.RestorableObservableGameContext;
@@ -14,7 +14,7 @@ public class HistoryController implements IHistoryController {
 
 	private HistoryPanel view;
 	private RestorableObservableGameContext game;
-	private GameStateHistory gameStateHistory;
+	private GameHistory gameHistory;
 	private GameState gameState;
 	private List<Observer> subscribers;
 	private IAbstractGameInitFactory gameInitFactory;
@@ -44,25 +44,25 @@ public class HistoryController implements IHistoryController {
 	}
 
 	@Override
-	public GameStateHistory getGameStateHistory() {
-		return gameStateHistory;
+	public GameHistory getGameHistory() {
+		return gameHistory;
 	}
 
 	@Override
-	public void setGameStateHistory(GameStateHistory gameStateHistory) {
-		this.gameStateHistory = gameStateHistory;
+	public void setGameHistory(GameHistory gameHistory) {
+		this.gameHistory = gameHistory;
 	}
 
 	@Override
 	public void undo() {
-		setGameState(gameStateHistory.getPreviousGameState());
+		setGameState(gameHistory.getPreviousGameState());
 		game.restore(getGameState());
 		notifySubscribers();
 	}
 
 	@Override
 	public void redo() {
-		setGameState(gameStateHistory.getNextGameState());
+		setGameState(gameHistory.getNextGameState());
 		game.restore(getGameState());
 		notifySubscribers();
 	}
@@ -105,8 +105,8 @@ public class HistoryController implements IHistoryController {
 				gameInitFactory.createStartingState());
 		game.restore(startGameState);
 
-		gameStateHistory.clear();
-		gameStateHistory.addGameState(game.createMemento());
+		gameHistory.clear();
+		gameHistory.addGameState(game.createMemento());
 	}
 
 	public IAbstractGameInitFactory getGameInitFactory() {

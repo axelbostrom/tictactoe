@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import memento.GameState;
-import memento.GameStateHistory;
+import memento.GameHistory;
 import observer.Observer;
 import saving.GameSave;
 import saving.IGameSaveRepository;
@@ -17,7 +17,7 @@ public class SaveController implements ISaveController {
 	private IGameSaveRepository gameSaveRepository;
 	private GameState gameState;
 	private RestorableObservableGameContext game;
-	private GameStateHistory gameStateHistory;
+	private GameHistory gameHistory;
 	private List<Observer> subscribers;
 
 	public SaveController() {
@@ -55,13 +55,13 @@ public class SaveController implements ISaveController {
 	}
 
 	@Override
-	public GameStateHistory getGameStateHistory() {
-		return gameStateHistory;
+	public GameHistory getGameHistory() {
+		return gameHistory;
 	}
 
 	@Override
-	public void setGameStateHistory(GameStateHistory gameStateHistory) {
-		this.gameStateHistory = gameStateHistory;
+	public void setGameHistory(GameHistory gameHistory) {
+		this.gameHistory = gameHistory;
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class SaveController implements ISaveController {
 
 	@Override
 	public void save(String filename) {
-		gameSaveRepository.addSave(new GameSave(game.getPlayers(), gameStateHistory, filename));
+		gameSaveRepository.addSave(new GameSave(game.getPlayers(), gameHistory, filename));
 	}
 
 	@Override
@@ -89,8 +89,8 @@ public class SaveController implements ISaveController {
 		GameSave gameSave = gameSaveRepository.getGameSave(index);
 
 		this.game.setPlayers(gameSave.getPlayers());
-		this.gameStateHistory.loadOtherHistory(gameSave.getGameStateHistory());
-		this.gameState = gameStateHistory.getCurrentGameState();
+		this.gameHistory.loadOtherHistory(gameSave.getGameHistory());
+		this.gameState = gameHistory.getCurrentGameState();
 
 		game.restore(getGameState());
 		notifySubscribers();

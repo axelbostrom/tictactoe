@@ -1,7 +1,7 @@
 package controllers;
 
 import memento.GameState;
-import memento.GameStateHistory;
+import memento.GameHistory;
 import observer.Observable;
 import tictactoe.IAbstractGameInitFactory;
 import tictactoe.RestorableObservableGameContext;
@@ -17,9 +17,9 @@ public interface IHistoryController extends Observable {
 
 	void setGame(RestorableObservableGameContext game);
 
-	GameStateHistory getGameStateHistory();
+	GameHistory getGameHistory();
 
-	void setGameStateHistory(GameStateHistory gameStateHistory);
+	void setGameHistory(GameHistory gameHistory);
 
 	void undo();
 

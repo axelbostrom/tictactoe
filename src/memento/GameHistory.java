@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameStateHistory implements Serializable {
+public class GameHistory implements Serializable {
 
 	/**
 	 * 
@@ -13,16 +13,16 @@ public class GameStateHistory implements Serializable {
 	private List<GameState> gameStates;
 	private int currentIndex;
 
-	public GameStateHistory() {
+	public GameHistory() {
 		clear();
 	}
 
-	public GameStateHistory(GameState initialGameState) {
+	public GameHistory(GameState initialGameState) {
 		clear();
 		addGameState(initialGameState);
 	}
 
-	public void loadOtherHistory(GameStateHistory other) {
+	public void loadOtherHistory(GameHistory other) {
 		this.gameStates = other.gameStates;
 		this.currentIndex = other.currentIndex;
 	}

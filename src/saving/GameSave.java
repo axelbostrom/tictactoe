@@ -3,7 +3,7 @@ package saving;
 import java.io.Serializable;
 import java.util.List;
 
-import memento.GameStateHistory;
+import memento.GameHistory;
 import models.Player;
 
 public class GameSave implements Serializable {
@@ -13,12 +13,12 @@ public class GameSave implements Serializable {
 	 */
 	private static final long serialVersionUID = -3122331854231061791L;
 	private List<Player> players;
-	private GameStateHistory gameStateHistory;
+	private GameHistory gameHistory;
 	private String filename;
 
-	public GameSave(List<Player> players, GameStateHistory gameStateHistory, String filename) {
+	public GameSave(List<Player> players, GameHistory gameHistory, String filename) {
 		this.setPlayers(players);
-		this.setGameStateHistory(gameStateHistory);
+		this.setGameHistory(gameHistory);
 		this.setFilename(filename);
 
 	}
@@ -31,12 +31,12 @@ public class GameSave implements Serializable {
 		this.players = players;
 	}
 
-	public GameStateHistory getGameStateHistory() {
-		return gameStateHistory;
+	public GameHistory getGameHistory() {
+		return gameHistory;
 	}
 
-	public void setGameStateHistory(GameStateHistory gameStateHistory) {
-		this.gameStateHistory = gameStateHistory;
+	public void setGameHistory(GameHistory gameHistory) {
+		this.gameHistory = gameHistory;
 	}
 
 	public String getFilename() {

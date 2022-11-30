@@ -8,7 +8,7 @@ import controllers.IHistoryController;
 import controllers.ISaveController;
 import controllers.SaveController;
 import controllers.StateMapper;
-import memento.GameStateHistory;
+import memento.GameHistory;
 import saving.GameSaveRepository;
 import tictactoe.DefaultGameInitFactory;
 import tictactoe.Game;
@@ -29,7 +29,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		Game game = new Game();
-		GameStateHistory gameStateHistory = new GameStateHistory();
+		GameHistory gameHistory = new GameHistory();
 
 		int numberOfCellsInARowToWin = 3;
 
@@ -54,12 +54,12 @@ public class Main {
 		boardController.setView(boardPanel);
 
 		historyController.setGame(game);
-		historyController.setGameStateHistory(gameStateHistory);
+		historyController.setGameHistory(gameHistory);
 		historyController.setView(historyPanel);
 		historyController.setGameInitFactory(gameInitFactory);
 
 		saveController.setGame(game);
-		saveController.setGameStateHistory(gameStateHistory);
+		saveController.setGameHistory(gameHistory);
 		saveController.setGameSaveRepository(new GameSaveRepository());
 
 		IGameController gameController = new GameController();
@@ -67,7 +67,7 @@ public class Main {
 		GameWindow mainWindow = new GameWindow(boardPanel, savePanel, historyPanel);
 
 		gameController.setGame(game);
-		gameController.setGameStateHistory(gameStateHistory);
+		gameController.setGameHistory(gameHistory);
 		gameController.setHistoryController(historyController);
 		gameController.setSaveController(saveController);
 		gameController.setBoardController(boardController);

@@ -1,6 +1,6 @@
 package controllers;
 
-import memento.GameStateHistory;
+import memento.GameHistory;
 import tictactoe.RestorableObservableGameContext;
 import ui.GameWindow;
 
@@ -8,7 +8,7 @@ public class GameController implements IGameController {
 
 	private GameWindow view;
 	private RestorableObservableGameContext game;
-	private GameStateHistory gameStateHistory;
+	private GameHistory gameHistory;
 	private ISaveController saveController;
 	private IHistoryController historyController;
 	private IBoardController boardController;
@@ -23,7 +23,7 @@ public class GameController implements IGameController {
 	}
 
 	private void moveMade() {
-		gameStateHistory.addGameState(game.createMemento());
+		gameHistory.addGameState(game.createMemento());
 		updateUI();
 	}
 
@@ -59,13 +59,13 @@ public class GameController implements IGameController {
 	}
 
 	@Override
-	public GameStateHistory getGameStateHistory() {
-		return gameStateHistory;
+	public GameHistory getGameHistory() {
+		return gameHistory;
 	}
 
 	@Override
-	public void setGameStateHistory(GameStateHistory gameStateHistory) {
-		this.gameStateHistory = gameStateHistory;
+	public void setGameHistory(GameHistory gameHistory) {
+		this.gameHistory = gameHistory;
 	}
 
 	@Override

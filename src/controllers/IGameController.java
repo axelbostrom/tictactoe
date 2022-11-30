@@ -1,6 +1,6 @@
 package controllers;
 
-import memento.GameStateHistory;
+import memento.GameHistory;
 import tictactoe.RestorableObservableGameContext;
 import ui.GameWindow;
 
@@ -16,9 +16,9 @@ public interface IGameController {
 
 	void setGame(RestorableObservableGameContext game);
 
-	GameStateHistory getGameStateHistory();
+	GameHistory getGameHistory();
 
-	void setGameStateHistory(GameStateHistory gameStateHistory);
+	void setGameHistory(GameHistory gameHistory);
 
 	ISaveController getSaveController();
 

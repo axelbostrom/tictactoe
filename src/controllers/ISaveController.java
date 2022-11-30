@@ -3,7 +3,7 @@ package controllers;
 import java.util.List;
 
 import memento.GameState;
-import memento.GameStateHistory;
+import memento.GameHistory;
 import observer.Observable;
 import saving.GameSave;
 import saving.IGameSaveRepository;
@@ -24,9 +24,9 @@ public interface ISaveController extends Observable {
 
 	void setGame(RestorableObservableGameContext game);
 
-	GameStateHistory getGameStateHistory();
+	GameHistory getGameHistory();
 
-	void setGameStateHistory(GameStateHistory gameStateHistory);
+	void setGameHistory(GameHistory gameHistory);
 
 	IGameSaveRepository getGameSaveRepository();
 
