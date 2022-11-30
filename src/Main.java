@@ -33,7 +33,9 @@ public class Main {
 		Game game = new Game();
 		GameStateHistory gameStateHistory = new GameStateHistory();
 		
-		IWinValidator winValidator = new WinValidator();
+		int numberOfCellsInARowToWin = 3;
+		
+		IWinValidator winValidator = new WinValidator(numberOfCellsInARowToWin);
 		ITieValidator tieValidator = new TieValidator();
 		IMoveValidator moveValidator = new MoveValidator();
 		IAbstractGameInitFactory gameInitFactory = new DefaultGameInitFactory(3, winValidator, tieValidator, moveValidator);
