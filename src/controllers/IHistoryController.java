@@ -7,7 +7,7 @@ import tictactoe.IAbstractGameInitFactory;
 import tictactoe.RestorableObservableGameContext;
 import ui.HistoryPanel;
 
-public interface IHistoryController extends Observable{
+public interface IHistoryController extends Observable {
 
 	HistoryPanel getView();
 
@@ -30,7 +30,7 @@ public interface IHistoryController extends Observable{
 	void setGameState(GameState gameState);
 
 	void newGame();
-	
+
 	IAbstractGameInitFactory getGameInitFactory();
 
 	void setGameInitFactory(IAbstractGameInitFactory gameInitFactory);

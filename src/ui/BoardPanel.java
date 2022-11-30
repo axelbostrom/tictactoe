@@ -46,7 +46,7 @@ public class BoardPanel extends JPanel {
 			subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.X_AXIS));
 			for (int j = 0; j < size; j++) {
 				BoardButton newButton = new BoardButton(i, j);
-				newButton.setMinimumSize(new Dimension(dim/size, dim/size));
+				newButton.setMinimumSize(new Dimension(dim / size, dim / size));
 				newButton.addActionListener(event -> {
 					BoardButton sourceButton = (BoardButton) event.getSource();
 					boardController.cellSelected(sourceButton.getRow(), sourceButton.getCol());

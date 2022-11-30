@@ -1,7 +1,6 @@
 package controllers;
 
 import memento.GameStateHistory;
-import tictactoe.Game;
 import tictactoe.RestorableObservableGameContext;
 import ui.GameWindow;
 
@@ -32,7 +31,7 @@ public interface IGameController {
 	IBoardController getBoardController();
 
 	void setBoardController(IBoardController boardController);
-	
+
 	IStateMapper getStateMapper();
 
 	void setStateMapper(IStateMapper stateMapper);

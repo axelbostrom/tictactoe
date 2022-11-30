@@ -16,7 +16,7 @@ public class GameStateHistory implements Serializable {
 	public GameStateHistory() {
 		clear();
 	}
-	
+
 	public GameStateHistory(GameState initialGameState) {
 		clear();
 		addGameState(initialGameState);
@@ -30,7 +30,7 @@ public class GameStateHistory implements Serializable {
 	public GameState getCurrentGameState() {
 		return gameStates.get(currentIndex);
 	}
-	
+
 	public void clear() {
 		gameStates = new ArrayList<>();
 		currentIndex = -1;

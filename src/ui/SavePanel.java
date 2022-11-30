@@ -12,6 +12,10 @@ import controllers.ISaveController;
 
 public class SavePanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6717844080357716594L;
 	private LoadPopup loadWindow;
 	private SavePopup saveWindow;
 	private ISaveController saveController;

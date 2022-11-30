@@ -1,7 +1,6 @@
 package controllers;
 
 import memento.GameStateHistory;
-import tictactoe.Game;
 import tictactoe.RestorableObservableGameContext;
 import ui.GameWindow;
 
@@ -17,7 +16,7 @@ public class GameController implements IGameController {
 
 	public GameController() {
 	}
-	
+
 	@Override
 	public void play() {
 		historyController.newGame();
@@ -27,10 +26,11 @@ public class GameController implements IGameController {
 		gameStateHistory.addGameState(game.createMemento());
 		updateUI();
 	}
-	
+
 	private void updateUiState() {
 		view.setState(stateMapper.map(game.getState()));
 	}
+
 	private void updateUI() {
 		boardController.updateBoard();
 		view.setPlayer(game.getCurrentPlayer());
@@ -108,5 +108,5 @@ public class GameController implements IGameController {
 	public void setStateMapper(IStateMapper stateMapper) {
 		this.stateMapper = stateMapper;
 	}
-	
+
 }

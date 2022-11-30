@@ -6,5 +6,5 @@ import models.Board;
 import models.Move;
 
 public interface IMoveValidator extends BiPredicate<Board, Move> {
-	
+
 }

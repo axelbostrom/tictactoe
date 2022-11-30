@@ -1,5 +1,4 @@
 
-
 import controllers.BoardController;
 import controllers.GameController;
 import controllers.HistoryController;
@@ -28,18 +27,18 @@ import validators.WinValidator;
 public class Main {
 
 	public static void main(String[] args) {
-		
 
 		Game game = new Game();
 		GameStateHistory gameStateHistory = new GameStateHistory();
-		
+
 		int numberOfCellsInARowToWin = 3;
-		
+
 		IWinValidator winValidator = new WinValidator(numberOfCellsInARowToWin);
 		ITieValidator tieValidator = new TieValidator();
 		IMoveValidator moveValidator = new MoveValidator();
-		IAbstractGameInitFactory gameInitFactory = new DefaultGameInitFactory(3, winValidator, tieValidator, moveValidator);
-		
+		IAbstractGameInitFactory gameInitFactory = new DefaultGameInitFactory(3, winValidator, tieValidator,
+				moveValidator);
+
 		ISaveController saveController = new SaveController();
 		IHistoryController historyController = new HistoryController();
 		IBoardController boardController = new BoardController();
@@ -47,14 +46,13 @@ public class Main {
 		SavePanel savePanel = new SavePanel(saveController);
 		HistoryPanel historyPanel = new HistoryPanel(historyController);
 		BoardPanel boardPanel = new BoardPanel(boardController, 3);
-		
 
 		saveController.setView(savePanel);
 		historyController.setView(historyPanel);
 
 		boardController.setGame(game);
 		boardController.setView(boardPanel);
-		
+
 		historyController.setGame(game);
 		historyController.setGameStateHistory(gameStateHistory);
 		historyController.setView(historyPanel);
@@ -63,11 +61,11 @@ public class Main {
 		saveController.setGame(game);
 		saveController.setGameStateHistory(gameStateHistory);
 		saveController.setGameSaveRepository(new GameSaveRepository());
-		
+
 		IGameController gameController = new GameController();
-		
+
 		GameWindow mainWindow = new GameWindow(boardPanel, savePanel, historyPanel);
-		
+
 		gameController.setGame(game);
 		gameController.setGameStateHistory(gameStateHistory);
 		gameController.setHistoryController(historyController);
@@ -75,9 +73,9 @@ public class Main {
 		gameController.setBoardController(boardController);
 		gameController.setView(mainWindow);
 		gameController.setStateMapper(new StateMapper());
-		
+
 		gameController.play();
-		
+
 	}
 
 }

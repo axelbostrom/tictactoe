@@ -20,7 +20,7 @@ public interface GameContext {
 	public Player getNextPlayer();
 
 	public void setCurrentPlayer(Player newPlayer);
-	
+
 	List<Player> getPlayers();
 
 	void setPlayers(List<Player> list);

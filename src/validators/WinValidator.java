@@ -12,7 +12,7 @@ public class WinValidator implements Serializable, IWinValidator {
 	 */
 	private static final long serialVersionUID = -249275397516363198L;
 	int winningChainSize;
-	
+
 	public WinValidator(int winningChainSize) {
 		this.winningChainSize = winningChainSize;
 	}
@@ -32,8 +32,7 @@ public class WinValidator implements Serializable, IWinValidator {
 			currCellType = board.getCell(row, 0);
 			chainSize = 1;
 			for (int col = 1; col < cols && (chainSize < winningChainSize); col++) {
-				if (!board.isEmpty(row, col)
-						&& board.getCell(row, col).getClass().equals(currCellType.getClass())) {
+				if (!board.isEmpty(row, col) && board.getCell(row, col).getClass().equals(currCellType.getClass())) {
 					chainSize++;
 				} else {
 					chainSize = 1;
@@ -54,8 +53,7 @@ public class WinValidator implements Serializable, IWinValidator {
 			currCellType = board.getCell(0, col);
 			chainSize = 1;
 			for (int row = 1; row < rows && (chainSize < winningChainSize); row++) {
-				if (!board.isEmpty(row, col)
-						&& board.getCell(row, col).getClass().equals(currCellType.getClass())) {
+				if (!board.isEmpty(row, col) && board.getCell(row, col).getClass().equals(currCellType.getClass())) {
 					chainSize++;
 				} else {
 					chainSize = 1;

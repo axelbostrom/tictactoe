@@ -10,7 +10,7 @@ import saving.IGameSaveRepository;
 import tictactoe.RestorableObservableGameContext;
 import ui.SavePanel;
 
-public interface ISaveController extends Observable{
+public interface ISaveController extends Observable {
 
 	SavePanel getView();
 

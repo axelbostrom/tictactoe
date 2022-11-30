@@ -87,7 +87,6 @@ public class SaveController implements ISaveController {
 	@Override
 	public void load(int index) throws ClassNotFoundException {
 		GameSave gameSave = gameSaveRepository.getGameSave(index);
-		
 
 		this.game.setPlayers(gameSave.getPlayers());
 		this.gameStateHistory.loadOtherHistory(gameSave.getGameStateHistory());

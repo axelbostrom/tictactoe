@@ -6,9 +6,6 @@ import tictactoe.GameContext;
 import validators.IMoveValidator;
 import validators.ITieValidator;
 import validators.IWinValidator;
-import validators.MoveValidator;
-import validators.TieValidator;
-import validators.WinValidator;
 
 public class MoveState implements State {
 	/**

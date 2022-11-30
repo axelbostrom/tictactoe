@@ -4,6 +4,10 @@ import javax.swing.JButton;
 
 public class BoardButton extends JButton {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7973036443826317319L;
 	private int row;
 	private int col;
 

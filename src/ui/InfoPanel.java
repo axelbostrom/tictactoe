@@ -37,12 +37,12 @@ public class InfoPanel extends JPanel {
 		this.player = player;
 		updateText();
 	}
-	
+
 	public void setState(GameWindowState state) {
 		this.state = state;
 		updateText();
 	}
-	
+
 	private void updateText() {
 		SwingUtilities.invokeLater(() -> {
 			String text = "";
@@ -57,7 +57,7 @@ public class InfoPanel extends JPanel {
 				text = "It's a tie!";
 				break;
 			}
-			
+
 			info.setText(text);
 		});
 	}

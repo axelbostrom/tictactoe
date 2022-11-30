@@ -1,6 +1,5 @@
 package controllers;
 
-import tictactoe.Game;
 import tictactoe.RestorableObservableGameContext;
 import ui.BoardPanel;
 

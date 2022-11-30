@@ -8,6 +8,8 @@ import tictactoe.states.State;
 
 public interface IAbstractGameInitFactory {
 	State createStartingState();
+
 	Board createBoard();
+
 	List<Player> createPlayers();
 }

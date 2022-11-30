@@ -42,15 +42,14 @@ public class GameWindow {
 
 		frmTicTacToe.setVisible(true);
 	}
-	
+
 	public void setPlayer(Player player) {
 		infoPanel.setPlayer(player);
 	}
-	
+
 	public void setState(GameWindowState state) {
-		
+
 		infoPanel.setState(state);
 	}
-	
 
 }

@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
 import controllers.ISaveController;
@@ -17,6 +16,10 @@ import saving.GameSave;
 
 public class LoadPopup extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3948050961117403051L;
 	private JPanel contentPane;
 	private String[] fileNameList;
 

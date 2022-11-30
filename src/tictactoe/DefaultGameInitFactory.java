@@ -12,7 +12,6 @@ import tictactoe.states.State;
 import validators.IMoveValidator;
 import validators.ITieValidator;
 import validators.IWinValidator;
-import validators.TieValidator;
 
 public class DefaultGameInitFactory implements IAbstractGameInitFactory {
 
@@ -20,7 +19,7 @@ public class DefaultGameInitFactory implements IAbstractGameInitFactory {
 	private IWinValidator winValidator;
 	private ITieValidator tieValidator;
 	private IMoveValidator moveValidator;
-	
+
 	public DefaultGameInitFactory(int boardSize, IWinValidator winValidator, ITieValidator tieValidator,
 			IMoveValidator moveValidator) {
 		super();
