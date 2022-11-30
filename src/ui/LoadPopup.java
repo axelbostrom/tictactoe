@@ -53,7 +53,7 @@ public class LoadPopup extends JFrame {
 		loadBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (loadList.getSelectedIndex() > 0)
+					if (loadList.getSelectedIndex() >= 0)
 						saveController.load(loadList.getSelectedIndex());
 				} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();

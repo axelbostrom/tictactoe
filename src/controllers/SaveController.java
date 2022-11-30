@@ -75,16 +75,18 @@ public class SaveController implements Observable {
 
 	public void load(int index) throws ClassNotFoundException {
 		GameSave gameSave = gameSaveRepository.getGameSave(index);
+		
 
 		this.game.setPlayers(gameSave.getPlayers());
-		this.gameStateHistory.copy(gameSave.getGameStateHistory());
+		this.gameStateHistory.load(gameSave.getGameStateHistory());
 		this.gameState = gameStateHistory.getCurrentGameState();
 
-		notifySubscribers("load");
+		game.restore(getGameState());
+		notifySubscribers();
 	}
 
-	public void notifySubscribers(String string) {
-		subscribers.forEach(observer -> observer.update(string, this));
+	private void notifySubscribers() {
+		subscribers.forEach(observer -> observer.update());
 	}
 
 	@Override

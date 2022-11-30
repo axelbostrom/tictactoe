@@ -15,22 +15,21 @@ import java.util.List;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 
-public class GameWindow implements Observable {
+public class GameWindow {
 
 	private JFrame frmTicTacToe;
+	private GameController gameController;
 	private BoardPanel boardContainer;
 	private SavePanel savePanel;
 	private HistoryPanel historyPanel;
 	private List<Observer> subscribers;
 	private InfoPanel infoPanel;
-	private int row;
-	private int col;
 
 	/**
 	 * Create the application.
 	 */
-	public GameWindow(SavePanel savePanel, HistoryPanel historyPanel) {
-		subscribers = new ArrayList<Observer>();
+	public GameWindow(GameController gameController, SavePanel savePanel, HistoryPanel historyPanel) {
+		this.gameController = gameController;
 		this.savePanel = savePanel;
 		this.historyPanel = historyPanel;
 		initialize();
@@ -49,9 +48,7 @@ public class GameWindow implements Observable {
 		boardContainer = new BoardPanel(3);
 		boardContainer.setBounds(10, 11, 300, 300);
 		boardContainer.setCallback((row, col) -> {
-			this.row = row;
-			this.col = col;
-			notifySubscribers("move");
+			gameController.cellSelected(row, col);
 		});
 
 		frmTicTacToe.getContentPane().add(infoPanel);
@@ -65,30 +62,19 @@ public class GameWindow implements Observable {
 		frmTicTacToe.setVisible(true);
 	}
 
-	public void setBoard(Board newBoard, String playerName) {
+	public void setBoard(Board newBoard) {
 		boardContainer.setBoard(newBoard);
-		infoPanel.setPlayerName(playerName);
+		
 	}
+	
+	public void setPlayer(Player player) {
+		infoPanel.setPlayer(player);
+	}
+	
+	public void setState(GameWindowState state) {
+		
+		infoPanel.setState(state);
+	}
+	
 
-	public int getRow() {
-		return row;
-	}
-
-	public int getCol() {
-		return col;
-	}
-
-	public void notifySubscribers(String string) {
-		subscribers.forEach(observer -> observer.update(string, this));
-	}
-
-	@Override
-	public void addSubscriber(Observer observer) {
-		subscribers.add(observer);
-	}
-
-	@Override
-	public void removeSubscriber(Observer observer) {
-		subscribers.remove(observer);
-	}
 }

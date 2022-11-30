@@ -1,13 +1,19 @@
 package controllers;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.CircleCell;
+import models.CrossCell;
+import tictactoe.Board;
 import tictactoe.Game;
 import tictactoe.GameState;
 import tictactoe.GameStateHistory;
 import tictactoe.Observable;
 import tictactoe.Observer;
+import tictactoe.Player;
+import tictactoe.states.MoveState;
 import ui.HistoryPanel;
 
 public class HistoryController implements Observable {
@@ -48,12 +54,14 @@ public class HistoryController implements Observable {
 
 	public void undo() {
 		setGameState(gameStateHistory.getPreviousGameState());
-		notifySubscribers("undo");
+		game.restore(getGameState());
+		notifySubscribers();
 	}
 
 	public void redo() {
 		setGameState(gameStateHistory.getNextGameState());
-		notifySubscribers("redo");
+		game.restore(getGameState());
+		notifySubscribers();
 	}
 
 	public GameState getGameState() {
@@ -77,11 +85,20 @@ public class HistoryController implements Observable {
 	}
 
 	public void newGame() {
-		notifySubscribers("newGame");
+		initializeNewGame();
+		notifySubscribers();
 	}
 
-	private void notifySubscribers(String string) {
-		subscribers.forEach(observer -> observer.update(string, this));
+	private void notifySubscribers() {
+		subscribers.forEach(observer -> observer.update());
+	}
+	
+	private void initializeNewGame() {
+		game.setPlayers(
+				List.of(new Player("Cross player", new CrossCell()), new Player("Circle player", new CircleCell())));
+		game.restore(new GameState(new Board(new Dimension(3, 3)), game.getPlayers().get(0), new MoveState()));
 
+		gameStateHistory.clear();
+		gameStateHistory.addGameState(game.createMemento());
 	}
 }

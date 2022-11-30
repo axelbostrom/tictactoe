@@ -43,7 +43,7 @@ public class Game implements GameContext, Observable, Serializable {
 	@Override
 	public void setState(State newState) {
 		state = newState;
-		notifySubscribers("setState");
+		notifySubscribers();
 	}
 
 	@Override
@@ -75,8 +75,8 @@ public class Game implements GameContext, Observable, Serializable {
 		state.makeMove(this, row, col);
 	}
 
-	public void notifySubscribers(String string) {
-		subscribers.forEach(observer -> observer.update(string, this));
+	private void notifySubscribers() {
+		subscribers.forEach(observer -> observer.update());
 	}
 
 	@Override
@@ -88,5 +88,11 @@ public class Game implements GameContext, Observable, Serializable {
 	public void removeSubscriber(Observer observer) {
 		subscribers.remove(observer);
 	}
+
+	public State getState() {
+		return state;
+	}
+	
+	
 
 }
