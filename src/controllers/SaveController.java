@@ -15,7 +15,6 @@ public class SaveController implements ISaveController {
 
 	private SavePanel view;
 	private IGameSaveRepository gameSaveRepository;
-	private GameState gameState;
 	private RestorableObservableGameContext game;
 	private GameHistory gameHistory;
 	private List<Observer> subscribers;
@@ -34,15 +33,6 @@ public class SaveController implements ISaveController {
 		this.view = view;
 	}
 
-	@Override
-	public GameState getGameState() {
-		return gameState;
-	}
-
-	@Override
-	public void setGame(GameState gameState) {
-		this.gameState = gameState;
-	}
 
 	@Override
 	public RestorableObservableGameContext getGame() {
@@ -90,9 +80,9 @@ public class SaveController implements ISaveController {
 
 		this.game.setPlayers(gameSave.getPlayers());
 		this.gameHistory.loadOtherHistory(gameSave.getGameHistory());
-		this.gameState = gameHistory.getCurrentGameState();
+		GameState gameState = gameHistory.getCurrentGameState();
 
-		game.restore(getGameState());
+		game.restore(gameState);
 		notifySubscribers();
 	}
 

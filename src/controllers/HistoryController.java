@@ -15,7 +15,6 @@ public class HistoryController implements IHistoryController {
 	private HistoryPanel view;
 	private RestorableObservableGameContext game;
 	private GameHistory gameHistory;
-	private GameState gameState;
 	private List<Observer> subscribers;
 	private IAbstractGameInitFactory gameInitFactory;
 
@@ -55,27 +54,16 @@ public class HistoryController implements IHistoryController {
 
 	@Override
 	public void undo() {
-		setGameState(gameHistory.getPreviousGameState());
-		game.restore(getGameState());
+		game.restore(gameHistory.getPreviousGameState());
 		notifySubscribers();
 	}
 
 	@Override
 	public void redo() {
-		setGameState(gameHistory.getNextGameState());
-		game.restore(getGameState());
+		game.restore(gameHistory.getNextGameState());
 		notifySubscribers();
 	}
 
-	@Override
-	public GameState getGameState() {
-		return gameState;
-	}
-
-	@Override
-	public void setGameState(GameState gameState) {
-		this.gameState = gameState;
-	}
 
 	@Override
 	public void addSubscriber(Observer observer) {

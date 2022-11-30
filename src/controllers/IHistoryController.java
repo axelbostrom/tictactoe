@@ -25,10 +25,6 @@ public interface IHistoryController extends Observable {
 
 	void redo();
 
-	GameState getGameState();
-
-	void setGameState(GameState gameState);
-
 	void newGame();
 
 	IAbstractGameInitFactory getGameInitFactory();

@@ -16,10 +16,6 @@ public interface ISaveController extends Observable {
 
 	void setView(SavePanel view);
 
-	GameState getGameState();
-
-	void setGame(GameState gameState);
-
 	RestorableObservableGameContext getGame();
 
 	void setGame(RestorableObservableGameContext game);
