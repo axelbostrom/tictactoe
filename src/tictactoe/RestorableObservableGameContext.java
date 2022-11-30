@@ -1,11 +1,11 @@
 package tictactoe;
 
-import memento.GameState;
+import memento.GameMemento;
 
 public interface RestorableObservableGameContext extends ObservableGameContext {
 
-	GameState createMemento();
+	GameMemento createMemento();
 
-	void restore(GameState gameState);
+	void restore(GameMemento memento);
 
 }

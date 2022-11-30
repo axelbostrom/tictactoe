@@ -6,7 +6,7 @@ import models.Board;
 import models.Player;
 import tictactoe.states.State;
 
-public class GameState implements Serializable {
+public class GameMemento implements Serializable {
 
 	/**
 	 * 
@@ -16,7 +16,7 @@ public class GameState implements Serializable {
 	private Player currPlayer;
 	private State currState;
 
-	public GameState(Board currBoard, Player currPlayer, State currState) {
+	public GameMemento(Board currBoard, Player currPlayer, State currState) {
 		this.currBoard = currBoard;
 		this.currPlayer = currPlayer;
 		this.currState = currState;

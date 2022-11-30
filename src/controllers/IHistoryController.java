@@ -1,6 +1,6 @@
 package controllers;
 
-import memento.GameState;
+import memento.GameMemento;
 import memento.GameHistory;
 import observer.Observable;
 import tictactoe.IAbstractGameInitFactory;

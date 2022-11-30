@@ -3,7 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import memento.GameState;
+import memento.GameMemento;
 import memento.GameHistory;
 import observer.Observer;
 import saving.GameSave;
@@ -80,9 +80,9 @@ public class SaveController implements ISaveController {
 
 		this.game.setPlayers(gameSave.getPlayers());
 		this.gameHistory.loadOtherHistory(gameSave.getGameHistory());
-		GameState gameState = gameHistory.getCurrentGameState();
+		GameMemento memento = gameHistory.getCurrentSnapshot();
 
-		game.restore(gameState);
+		game.restore(memento);
 		notifySubscribers();
 	}
 

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import memento.GameState;
+import memento.GameMemento;
 import models.Board;
 import models.Player;
 import observer.Observer;
@@ -24,15 +24,15 @@ public class Game implements Serializable, RestorableObservableGameContext {
 	}
 
 	@Override
-	public GameState createMemento() {
-		return new GameState(board, player, state);
+	public GameMemento createMemento() {
+		return new GameMemento(board, player, state);
 	}
 
 	@Override
-	public void restore(GameState gameState) {
-		this.board = gameState.getCurrBoard();
-		this.player = gameState.getCurrPlayer();
-		this.state = gameState.getCurrState();
+	public void restore(GameMemento memento) {
+		this.board = memento.getCurrBoard();
+		this.player = memento.getCurrPlayer();
+		this.state = memento.getCurrState();
 	}
 
 	@Override

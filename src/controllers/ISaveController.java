@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.List;
 
-import memento.GameState;
+import memento.GameMemento;
 import memento.GameHistory;
 import observer.Observable;
 import saving.GameSave;

@@ -23,7 +23,7 @@ public class GameController implements IGameController {
 	}
 
 	private void moveMade() {
-		gameHistory.addGameState(game.createMemento());
+		gameHistory.addSnapshot(game.createMemento());
 		updateUI();
 	}
 

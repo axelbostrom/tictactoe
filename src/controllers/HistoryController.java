@@ -3,7 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import memento.GameState;
+import memento.GameMemento;
 import memento.GameHistory;
 import observer.Observer;
 import tictactoe.IAbstractGameInitFactory;
@@ -54,13 +54,13 @@ public class HistoryController implements IHistoryController {
 
 	@Override
 	public void undo() {
-		game.restore(gameHistory.getPreviousGameState());
+		game.restore(gameHistory.getPreviousSnapshot());
 		notifySubscribers();
 	}
 
 	@Override
 	public void redo() {
-		game.restore(gameHistory.getNextGameState());
+		game.restore(gameHistory.getNextSnapshot());
 		notifySubscribers();
 	}
 
@@ -89,12 +89,12 @@ public class HistoryController implements IHistoryController {
 
 	private void initializeNewGame() {
 		game.setPlayers(gameInitFactory.createPlayers());
-		GameState startGameState = new GameState(gameInitFactory.createBoard(), game.getPlayers().get(0),
+		GameMemento startMemento = new GameMemento(gameInitFactory.createBoard(), game.getPlayers().get(0),
 				gameInitFactory.createStartingState());
-		game.restore(startGameState);
+		game.restore(startMemento);
 
 		gameHistory.clear();
-		gameHistory.addGameState(game.createMemento());
+		gameHistory.addSnapshot(game.createMemento());
 	}
 
 	public IAbstractGameInitFactory getGameInitFactory() {

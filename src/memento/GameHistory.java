@@ -10,56 +10,56 @@ public class GameHistory implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 5235180427689906260L;
-	private List<GameState> gameStates;
+	private List<GameMemento> mementos;
 	private int currentIndex;
 
 	public GameHistory() {
 		clear();
 	}
 
-	public GameHistory(GameState initialGameState) {
+	public GameHistory(GameMemento initialSnapshot) {
 		clear();
-		addGameState(initialGameState);
+		addSnapshot(initialSnapshot);
 	}
 
 	public void loadOtherHistory(GameHistory other) {
-		this.gameStates = other.gameStates;
+		this.mementos = other.mementos;
 		this.currentIndex = other.currentIndex;
 	}
 
-	public GameState getCurrentGameState() {
-		return gameStates.get(currentIndex);
+	public GameMemento getCurrentSnapshot() {
+		return mementos.get(currentIndex);
 	}
 
 	public void clear() {
-		gameStates = new ArrayList<>();
+		mementos = new ArrayList<>();
 		currentIndex = -1;
 	}
 
-	public void addGameState(GameState gameState) {
+	public void addSnapshot(GameMemento memento) {
 
-		if (currentIndex < gameStates.size() - 1) {
-			gameStates.removeAll(gameStates.subList(currentIndex + 1, gameStates.size()));
+		if (currentIndex < mementos.size() - 1) {
+			mementos.removeAll(mementos.subList(currentIndex + 1, mementos.size()));
 		}
-		gameStates.add(gameState);
+		mementos.add(memento);
 		currentIndex++;
 	}
 
-	public GameState getNextGameState() {
-		if (currentIndex < gameStates.size() - 1) {
+	public GameMemento getNextSnapshot() {
+		if (currentIndex < mementos.size() - 1) {
 			currentIndex++;
-			return getCurrentGameState();
+			return getCurrentSnapshot();
 		} else {
-			return getCurrentGameState();
+			return getCurrentSnapshot();
 		}
 	}
 
-	public GameState getPreviousGameState() {
+	public GameMemento getPreviousSnapshot() {
 		if (currentIndex > 0) {
 			currentIndex--;
-			return getCurrentGameState();
+			return getCurrentSnapshot();
 		} else {
-			return getCurrentGameState();
+			return getCurrentSnapshot();
 		}
 	}
 
