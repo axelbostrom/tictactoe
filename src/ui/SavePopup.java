@@ -3,15 +3,14 @@ package ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import controllers.SaveController;
-
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JButton;
+import controllers.ISaveController;
 
 public class SavePopup extends JFrame {
 
@@ -22,12 +21,12 @@ public class SavePopup extends JFrame {
 	private JPanel contentPane;
 	private String saveFileName;
 	private JTextField textField;
-	private SaveController saveController;
+	private ISaveController saveController;
 
 	/**
 	 * Create the frame.
 	 */
-	public SavePopup(SaveController gc) {
+	public SavePopup(ISaveController gc) {
 		saveController = gc;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 300, 75);

@@ -4,16 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
-import controllers.SaveController;
+import controllers.ISaveController;
 import tictactoe.GameSave;
-
-import javax.swing.JList;
-import javax.swing.JTextPane;
-import javax.swing.JButton;
 
 public class LoadPopup extends JFrame {
 
@@ -26,7 +25,7 @@ public class LoadPopup extends JFrame {
 	 * @throws ClassNotFoundException
 	 */
 
-	public LoadPopup(SaveController saveController) throws ClassNotFoundException {
+	public LoadPopup(ISaveController saveController) throws ClassNotFoundException {
 		List<GameSave> gameSave = saveController.getSaves();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

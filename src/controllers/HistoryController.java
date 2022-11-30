@@ -10,13 +10,12 @@ import tictactoe.Board;
 import tictactoe.Game;
 import tictactoe.GameState;
 import tictactoe.GameStateHistory;
-import tictactoe.Observable;
 import tictactoe.Observer;
 import tictactoe.Player;
 import tictactoe.states.MoveState;
 import ui.HistoryPanel;
 
-public class HistoryController implements Observable {
+public class HistoryController implements IHistoryController {
 
 	private HistoryPanel view;
 	private Game game;
@@ -28,46 +27,56 @@ public class HistoryController implements Observable {
 		subscribers = new ArrayList<Observer>();
 	}
 
+	@Override
 	public HistoryPanel getView() {
 		return view;
 	}
 
+	@Override
 	public void setView(HistoryPanel view) {
 		this.view = view;
 	}
 
+	@Override
 	public Game getGame() {
 		return game;
 	}
 
+	@Override
 	public void setGame(Game game) {
 		this.game = game;
 	}
 
+	@Override
 	public GameStateHistory getGameStateHistory() {
 		return gameStateHistory;
 	}
 
+	@Override
 	public void setGameStateHistory(GameStateHistory gameStateHistory) {
 		this.gameStateHistory = gameStateHistory;
 	}
 
+	@Override
 	public void undo() {
 		setGameState(gameStateHistory.getPreviousGameState());
 		game.restore(getGameState());
 		notifySubscribers();
 	}
 
+	@Override
 	public void redo() {
 		setGameState(gameStateHistory.getNextGameState());
 		game.restore(getGameState());
 		notifySubscribers();
 	}
 
+	@Override
 	public GameState getGameState() {
 		return gameState;
 	}
 
+	@Override
 	public void setGameState(GameState gameState) {
 		this.gameState = gameState;
 	}
@@ -84,6 +93,7 @@ public class HistoryController implements Observable {
 
 	}
 
+	@Override
 	public void newGame() {
 		initializeNewGame();
 		notifySubscribers();

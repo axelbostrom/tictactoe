@@ -3,27 +3,20 @@ package ui;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.function.BiConsumer;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
-import controllers.SaveController;
-import models.Cell;
-import models.CircleCell;
-import models.CrossCell;
-import models.EmptyCell;
-import tictactoe.Board;
+import controllers.ISaveController;
 
 public class SavePanel extends JPanel {
 
 	private LoadPopup loadWindow;
 	private SavePopup saveWindow;
-	private SaveController saveController;
+	private ISaveController saveController;
 
-	public SavePanel(SaveController saveController) {
+	public SavePanel(ISaveController saveController) {
 		this.saveController = saveController;
 		initialize();
 	}

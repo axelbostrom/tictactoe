@@ -2,7 +2,6 @@ package validators;
 
 import java.io.Serializable;
 import java.util.function.BiPredicate;
-import java.util.function.Predicate;
 
 import models.Move;
 import tictactoe.Board;

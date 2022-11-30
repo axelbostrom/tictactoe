@@ -1,10 +1,6 @@
 package tictactoe.states;
 
-import models.Move;
 import tictactoe.GameContext;
-import validators.MoveValidator;
-import validators.TieValidator;
-import validators.WinValidator;
 
 public class TieState implements State {
 	/**

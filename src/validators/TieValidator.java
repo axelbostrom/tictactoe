@@ -2,10 +2,8 @@ package validators;
 
 import java.awt.Dimension;
 import java.io.Serializable;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
-import models.Move;
 import tictactoe.Board;
 
 public class TieValidator implements Predicate<Board>, Serializable {

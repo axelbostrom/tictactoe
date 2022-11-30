@@ -1,22 +1,13 @@
 package ui;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.function.BiConsumer;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
-import controllers.HistoryController;
-import controllers.SaveController;
-import models.Cell;
-import models.CircleCell;
-import models.CrossCell;
-import models.EmptyCell;
-import tictactoe.Board;
+import controllers.IHistoryController;
 
 public class HistoryPanel extends JPanel {
 
@@ -24,9 +15,9 @@ public class HistoryPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -7766253202207226342L;
-	private HistoryController historyController;
+	private IHistoryController historyController;
 
-	public HistoryPanel(HistoryController historyController) {
+	public HistoryPanel(IHistoryController historyController) {
 		this.historyController = historyController;
 		initialize();
 	}

@@ -8,9 +8,6 @@ import tictactoe.states.State;
 
 public class Game implements GameContext, Observable, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -53498677702210278L;
 	private List<Player> players;
 	private State state;
@@ -71,6 +68,7 @@ public class Game implements GameContext, Observable, Serializable {
 		player = newPlayer;
 	}
 
+	@Override
 	public void makeMove(int row, int col) {
 		state.makeMove(this, row, col);
 	}
@@ -92,7 +90,5 @@ public class Game implements GameContext, Observable, Serializable {
 	public State getState() {
 		return state;
 	}
-	
-	
 
 }

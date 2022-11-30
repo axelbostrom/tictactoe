@@ -1,19 +1,16 @@
 package ui;
 
 import java.awt.Dimension;
-import java.util.function.BiConsumer;
 
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import controllers.IBoardController;
 import models.Cell;
 import models.CircleCell;
 import models.CrossCell;
-import models.EmptyCell;
 import tictactoe.Board;
-import tictactoe.Player;
 
 public class BoardPanel extends JPanel {
 
@@ -22,17 +19,20 @@ public class BoardPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -7674162700216707926L;
 	private BoardButton[][] buttons;
-	private int size = 3;
-	private BiConsumer<Integer, Integer> handler;
+	private int size;
+	private IBoardController boardController;
+	private int dim = 300;
 
-	public BoardPanel(int size) {
+	public BoardPanel(IBoardController boardController, int size) {
+		this.boardController = boardController;
 		this.size = size;
 		initialize();
 	}
 
 	private void initialize() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		setSize(new Dimension(300, 300));
+		setSize(new Dimension(dim, dim));
+		setBounds(10, 11, dim, dim);
 
 		buttons = new BoardButton[size][size];
 		addButtons();
@@ -46,10 +46,10 @@ public class BoardPanel extends JPanel {
 			subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.X_AXIS));
 			for (int j = 0; j < size; j++) {
 				BoardButton newButton = new BoardButton(i, j);
-				newButton.setMinimumSize(new Dimension(100, 100));
+				newButton.setMinimumSize(new Dimension(dim/size, dim/size));
 				newButton.addActionListener(event -> {
 					BoardButton sourceButton = (BoardButton) event.getSource();
-					handler.accept(sourceButton.getRow(), sourceButton.getCol());
+					boardController.cellSelected(sourceButton.getRow(), sourceButton.getCol());
 				});
 				buttons[i][j] = newButton;
 				subPanel.add(buttons[i][j]);
@@ -65,10 +65,6 @@ public class BoardPanel extends JPanel {
 				buttons[row][col].setText(text);
 			});
 		}
-	}
-
-	public void setCallback(BiConsumer<Integer, Integer> handler) {
-		this.handler = handler;
 	}
 
 	public void setBoard(Board newBoard) {
