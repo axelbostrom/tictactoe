@@ -82,7 +82,8 @@ public class WinValidator implements Serializable, IWinValidator {
 					currCellType = board.getCell(row + col, col);
 				}
 			}
-
+			
+			chainSize = 1;
 			currCellType = board.getCell(row, 0);
 
 			for (int col = 1; (col < cols) && (row - col >= 0) && (chainSize < winningChainSize); col++) {

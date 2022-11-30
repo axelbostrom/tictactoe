@@ -17,8 +17,14 @@ public class GameSaveRepository implements Serializable, IGameSaveRepository {
 	 */
 	private static final long serialVersionUID = 5880274844391104904L;
 	private List<GameSave> gameSaves;
-	private static String folder = "playerdata\\savedgames";
-	private File file;
+	private String folderPath = "playerdata\\savedgames";
+	
+	public GameSaveRepository() {
+	}
+	
+	public GameSaveRepository(String folder) {
+		this.folderPath = folder;
+	}
 
 	@Override
 	public void addSave(GameSave g) {
@@ -26,8 +32,8 @@ public class GameSaveRepository implements Serializable, IGameSaveRepository {
 	}
 
 	private void writeToFile(GameSave gs) {
-		new File(folder).mkdirs();
-		file = new File(folder + "\\" + gs.getFilename() + ".txt");
+		new File(folderPath).mkdirs();
+		File file = new File(folderPath + "\\" + gs.getFilename() + ".txt");
 
 		try {
 			file.createNewFile();
@@ -56,9 +62,9 @@ public class GameSaveRepository implements Serializable, IGameSaveRepository {
 	}
 
 	private void loadFromFile() throws ClassNotFoundException {
-		file = new File(folder);
-		file.mkdirs();
-		File[] files = file.listFiles();
+		File folder = new File(folderPath);
+		folder.mkdirs();
+		File[] files = folder.listFiles();
 		gameSaves = new ArrayList<GameSave>();
 
 		try {
