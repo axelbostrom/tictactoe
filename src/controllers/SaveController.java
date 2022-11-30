@@ -3,20 +3,20 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import tictactoe.Game;
-import tictactoe.GameSave;
-import tictactoe.GameSaveRepository;
-import tictactoe.GameState;
-import tictactoe.GameStateHistory;
-import tictactoe.Observer;
+import memento.GameState;
+import memento.GameStateHistory;
+import observer.Observer;
+import saving.GameSave;
+import saving.IGameSaveRepository;
+import tictactoe.RestorableObservableGameContext;
 import ui.SavePanel;
 
 public class SaveController implements ISaveController {
 
 	private SavePanel view;
-	private GameSaveRepository gameSaveRepository;
+	private IGameSaveRepository gameSaveRepository;
 	private GameState gameState;
-	private Game game;
+	private RestorableObservableGameContext game;
 	private GameStateHistory gameStateHistory;
 	private List<Observer> subscribers;
 
@@ -45,12 +45,12 @@ public class SaveController implements ISaveController {
 	}
 
 	@Override
-	public Game getGame() {
+	public RestorableObservableGameContext getGame() {
 		return game;
 	}
 
 	@Override
-	public void setGame(Game game) {
+	public void setGame(RestorableObservableGameContext game) {
 		this.game = game;
 	}
 
@@ -65,12 +65,12 @@ public class SaveController implements ISaveController {
 	}
 
 	@Override
-	public GameSaveRepository getGameSaveRepository() {
+	public IGameSaveRepository getGameSaveRepository() {
 		return gameSaveRepository;
 	}
 
 	@Override
-	public void setGameSaveRepository(GameSaveRepository gameSaveRepository) {
+	public void setGameSaveRepository(IGameSaveRepository gameSaveRepository) {
 		this.gameSaveRepository = gameSaveRepository;
 	}
 

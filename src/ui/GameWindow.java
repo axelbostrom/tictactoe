@@ -2,7 +2,7 @@ package ui;
 
 import javax.swing.JFrame;
 
-import tictactoe.Player;
+import models.Player;
 
 public class GameWindow {
 

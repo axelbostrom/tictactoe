@@ -12,7 +12,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
 import controllers.ISaveController;
-import tictactoe.GameSave;
+import saving.GameSave;
 
 public class LoadPopup extends JFrame {
 

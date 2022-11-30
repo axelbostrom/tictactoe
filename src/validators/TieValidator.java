@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.io.Serializable;
 import java.util.function.Predicate;
 
-import tictactoe.Board;
+import models.Board;
 
 public class TieValidator implements Predicate<Board>, Serializable {
 

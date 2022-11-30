@@ -1,9 +1,9 @@
 package controllers;
 
-import tictactoe.Game;
-import tictactoe.GameState;
-import tictactoe.GameStateHistory;
-import tictactoe.Observable;
+import memento.GameState;
+import memento.GameStateHistory;
+import observer.Observable;
+import tictactoe.RestorableObservableGameContext;
 import ui.HistoryPanel;
 
 public interface IHistoryController extends Observable{
@@ -12,9 +12,9 @@ public interface IHistoryController extends Observable{
 
 	void setView(HistoryPanel view);
 
-	Game getGame();
+	RestorableObservableGameContext getGame();
 
-	void setGame(Game game);
+	void setGame(RestorableObservableGameContext game);
 
 	GameStateHistory getGameStateHistory();
 

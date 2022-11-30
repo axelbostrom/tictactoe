@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import tictactoe.Player;
+import models.Player;
 
 public class InfoPanel extends JPanel {
 

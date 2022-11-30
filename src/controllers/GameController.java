@@ -1,7 +1,8 @@
 package controllers;
 
+import memento.GameStateHistory;
 import tictactoe.Game;
-import tictactoe.GameStateHistory;
+import tictactoe.RestorableObservableGameContext;
 import tictactoe.states.MoveState;
 import tictactoe.states.TieState;
 import tictactoe.states.WinState;
@@ -56,7 +57,7 @@ public class GameController implements IGameController {
 	}
 
 	@Override
-	public Game getGame() {
+	public RestorableObservableGameContext getGame() {
 		return game;
 	}
 

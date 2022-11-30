@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import memento.GameState;
+import models.Board;
+import models.Player;
+import observer.Observer;
 import tictactoe.states.State;
 
-public class Game implements GameContext, Observable, Serializable {
+public class Game implements Serializable, RestorableObservableGameContext {
 
 	private static final long serialVersionUID = -53498677702210278L;
 	private List<Player> players;
@@ -19,20 +23,24 @@ public class Game implements GameContext, Observable, Serializable {
 		subscribers = new ArrayList<>();
 	}
 
+	@Override
 	public GameState createMemento() {
 		return new GameState(board, player, state);
 	}
 
+	@Override
 	public void restore(GameState gameState) {
 		this.board = gameState.getCurrBoard();
 		this.player = gameState.getCurrPlayer();
 		this.state = gameState.getCurrState();
 	}
 
+	@Override
 	public List<Player> getPlayers() {
 		return players;
 	}
 
+	@Override
 	public void setPlayers(List<Player> list) {
 		this.players = list;
 	}
@@ -87,6 +95,7 @@ public class Game implements GameContext, Observable, Serializable {
 		subscribers.remove(observer);
 	}
 
+	@Override
 	public State getState() {
 		return state;
 	}

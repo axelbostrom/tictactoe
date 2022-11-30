@@ -7,10 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import controllers.IBoardController;
+import models.Board;
 import models.Cell;
 import models.CircleCell;
 import models.CrossCell;
-import tictactoe.Board;
 
 public class BoardPanel extends JPanel {
 

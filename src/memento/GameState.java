@@ -1,7 +1,9 @@
-package tictactoe;
+package memento;
 
 import java.io.Serializable;
 
+import models.Board;
+import models.Player;
 import tictactoe.states.State;
 
 public class GameState implements Serializable {

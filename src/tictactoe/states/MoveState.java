@@ -1,7 +1,7 @@
 package tictactoe.states;
 
+import models.Board;
 import models.Move;
-import tictactoe.Board;
 import tictactoe.GameContext;
 import validators.MoveValidator;
 import validators.TieValidator;

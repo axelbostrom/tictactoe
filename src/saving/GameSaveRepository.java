@@ -1,4 +1,4 @@
-package tictactoe;
+package saving;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameSaveRepository implements Serializable {
+public class GameSaveRepository implements Serializable, IGameSaveRepository {
 
 	/**
 	 * 
@@ -20,11 +20,12 @@ public class GameSaveRepository implements Serializable {
 	private static String folder = "playerdata\\savedgames";
 	private File file;
 
+	@Override
 	public void addSave(GameSave g) {
 		writeToFile(g);
 	}
 
-	public void writeToFile(GameSave gs) {
+	private void writeToFile(GameSave gs) {
 		new File(folder).mkdirs();
 		file = new File(folder + "\\" + gs.getFilename() + ".txt");
 
@@ -42,17 +43,19 @@ public class GameSaveRepository implements Serializable {
 		}
 	}
 
+	@Override
 	public GameSave getGameSave(int i) throws ClassNotFoundException {
 		loadFromFile();
 		return gameSaves.get(i);
 	}
 
+	@Override
 	public List<GameSave> getListOfSaves() throws ClassNotFoundException {
 		loadFromFile();
 		return gameSaves;
 	}
 
-	public void loadFromFile() throws ClassNotFoundException {
+	private void loadFromFile() throws ClassNotFoundException {
 		file = new File(folder);
 		File[] files = file.listFiles();
 		gameSaves = new ArrayList<GameSave>();

@@ -1,11 +1,8 @@
-package tictactoe;
+package models;
 
 import java.awt.Dimension;
 import java.io.Serializable;
 import java.util.Arrays;
-
-import models.Cell;
-import models.EmptyCell;
 
 public class Board implements Serializable {
 

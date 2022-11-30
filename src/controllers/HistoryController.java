@@ -4,21 +4,21 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
+import memento.GameState;
+import memento.GameStateHistory;
+import models.Board;
 import models.CircleCell;
 import models.CrossCell;
-import tictactoe.Board;
-import tictactoe.Game;
-import tictactoe.GameState;
-import tictactoe.GameStateHistory;
-import tictactoe.Observer;
-import tictactoe.Player;
+import models.Player;
+import observer.Observer;
+import tictactoe.RestorableObservableGameContext;
 import tictactoe.states.MoveState;
 import ui.HistoryPanel;
 
 public class HistoryController implements IHistoryController {
 
 	private HistoryPanel view;
-	private Game game;
+	private RestorableObservableGameContext game;
 	private GameStateHistory gameStateHistory;
 	private GameState gameState;
 	private List<Observer> subscribers;
@@ -38,12 +38,12 @@ public class HistoryController implements IHistoryController {
 	}
 
 	@Override
-	public Game getGame() {
+	public RestorableObservableGameContext getGame() {
 		return game;
 	}
 
 	@Override
-	public void setGame(Game game) {
+	public void setGame(RestorableObservableGameContext game) {
 		this.game = game;
 	}
 

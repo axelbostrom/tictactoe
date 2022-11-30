@@ -2,12 +2,12 @@ package controllers;
 
 import java.util.List;
 
-import tictactoe.Game;
-import tictactoe.GameSave;
-import tictactoe.GameSaveRepository;
-import tictactoe.GameState;
-import tictactoe.GameStateHistory;
-import tictactoe.Observable;
+import memento.GameState;
+import memento.GameStateHistory;
+import observer.Observable;
+import saving.GameSave;
+import saving.IGameSaveRepository;
+import tictactoe.RestorableObservableGameContext;
 import ui.SavePanel;
 
 public interface ISaveController extends Observable{
@@ -20,17 +20,17 @@ public interface ISaveController extends Observable{
 
 	void setGame(GameState gameState);
 
-	Game getGame();
+	RestorableObservableGameContext getGame();
 
-	void setGame(Game game);
+	void setGame(RestorableObservableGameContext game);
 
 	GameStateHistory getGameStateHistory();
 
 	void setGameStateHistory(GameStateHistory gameStateHistory);
 
-	GameSaveRepository getGameSaveRepository();
+	IGameSaveRepository getGameSaveRepository();
 
-	void setGameSaveRepository(GameSaveRepository gameSaveRepository);
+	void setGameSaveRepository(IGameSaveRepository gameSaveRepository);
 
 	void save(String filename);
 

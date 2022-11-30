@@ -1,6 +1,7 @@
 package controllers;
 
 import tictactoe.Game;
+import tictactoe.RestorableObservableGameContext;
 import ui.BoardPanel;
 
 public class BoardController implements IBoardController {
@@ -32,7 +33,7 @@ public class BoardController implements IBoardController {
 	}
 
 	@Override
-	public Game getGame() {
+	public RestorableObservableGameContext getGame() {
 		return game;
 	}
 

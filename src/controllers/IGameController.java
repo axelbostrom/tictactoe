@@ -1,7 +1,8 @@
 package controllers;
 
+import memento.GameStateHistory;
 import tictactoe.Game;
-import tictactoe.GameStateHistory;
+import tictactoe.RestorableObservableGameContext;
 import ui.GameWindow;
 
 public interface IGameController {
@@ -12,7 +13,7 @@ public interface IGameController {
 
 	void setView(GameWindow view);
 
-	Game getGame();
+	RestorableObservableGameContext getGame();
 
 	void setGame(Game game);
 

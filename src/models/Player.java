@@ -1,8 +1,6 @@
-package tictactoe;
+package models;
 
 import java.io.Serializable;
-
-import models.Cell;
 
 public class Player implements Serializable {
 

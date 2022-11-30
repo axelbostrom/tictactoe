@@ -3,8 +3,8 @@ package validators;
 import java.io.Serializable;
 import java.util.function.BiPredicate;
 
+import models.Board;
 import models.Move;
-import tictactoe.Board;
 
 public class MoveValidator implements BiPredicate<Board, Move>, Serializable {
 

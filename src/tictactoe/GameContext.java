@@ -1,5 +1,9 @@
 package tictactoe;
 
+import java.util.List;
+
+import models.Board;
+import models.Player;
 import tictactoe.states.State;
 
 public interface GameContext {
@@ -16,4 +20,10 @@ public interface GameContext {
 	public Player getNextPlayer();
 
 	public void setCurrentPlayer(Player newPlayer);
+	
+	List<Player> getPlayers();
+
+	void setPlayers(List<Player> list);
+
+	State getState();
 }

@@ -1,6 +1,7 @@
 package controllers;
 
 import tictactoe.Game;
+import tictactoe.RestorableObservableGameContext;
 import ui.BoardPanel;
 
 public interface IBoardController {
@@ -13,7 +14,7 @@ public interface IBoardController {
 
 	void setView(BoardPanel view);
 
-	Game getGame();
+	RestorableObservableGameContext getGame();
 
 	void setGame(Game game);
 

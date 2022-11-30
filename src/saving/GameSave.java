@@ -1,7 +1,10 @@
-package tictactoe;
+package saving;
 
 import java.io.Serializable;
 import java.util.List;
+
+import memento.GameStateHistory;
+import models.Player;
 
 public class GameSave implements Serializable {
 
